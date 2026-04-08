@@ -1,0 +1,76 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers items horizontally */
+  min-height: 100vh;
+}
+
+h2 {
+  color: #333;
+  margin-top: 30px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* The wrapper for Blockly to give it a nice shadow and border */
+#blocklyArea {
+  width: 90%;
+  max-width: 900px;
+  height: 600px;
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  overflow: hidden; /* Keeps the workspace contained */
+}
+
+#blocklyDiv {
+  height: 100%;
+  width: 100%;
+  border-radius: 8px; /* Slightly rounded edges inside the container */
+}
+
+/* Styling the Send Button */
+button {
+  background-color: #4a90e2; /* Modern Blue */
+  color: white;
+  border: none;
+  padding: 15px 32px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50px; /* Pill shape */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.button-container {
+  margin-bottom: 40px;
+  display: flex;
+  gap: 20px; /* Space between buttons */
+}
+
+/* Specific style for Send button */
+.send-btn {
+  background-color: #4a90e2;
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+/* Specific style for Clear button */
+.clear-btn {
+  background-color: #f44336; /* Red */
+  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+}
+
+.clear-btn:hover {
+  background-color: #d32f2f;
+  box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+}
