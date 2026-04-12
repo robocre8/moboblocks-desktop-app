@@ -1,47 +1,43 @@
 const pythonGenerator = Blockly.Python; 
 
-// --- move_block ---
-pythonGenerator.forBlock['move_block'] = function(block, generator) {
-  // Use the 'name' from your JSON: "DIRECTION" and "SPEED"
-  const dropdown_direction = block.getFieldValue('DIRECTION');
-  const field_speed = block.getFieldValue('SPEED') || '0';
+// ----------------------- MOVEMENTS -------------------------
+pythonGenerator.forBlock['robot_control_block'] = function(block, generator) {
+  const linear_speed = block.getFieldValue('LINEAR') || '0';
+  const angular_speed = block.getFieldValue('ANGULAR') || '0';
   
-  return `robot.move("${dropdown_direction}", ${field_speed})\n`;
+  return `robot.writeRobotVel("${linear_speed}", ${angular_speed})\n`;
 };
 
-// --- turn_block ---
-pythonGenerator.forBlock['turn_block'] = function(block, generator) {
-  // Use the 'name' from your JSON: "DIRECTION" and "SPEED"
-  const dropdown_direction = block.getFieldValue('DIRECTION');
-  const field_speed = block.getFieldValue('SPEED') || '0';
+pythonGenerator.forBlock['servo_angle_block'] = function(block, generator) {
+
+  const label_num = block.getFieldValue('LABEL_NUM');
+  const angle = block.getFieldValue('ANGLE') || '0';
   
-  return `robot.turn("${dropdown_direction}", ${field_speed})\n`;
+  return `robot.writeServo${label_num}Angle(${angle})\n`;
 };
 
-// --- delay_block ---
-pythonGenerator.forBlock['delay_block'] = function(block, generator) {
-  // Use the 'name' from your JSON: "DELAY_MS"
-  const field_ms = block.getFieldValue('DELAY_MS') || '0';
+pythonGenerator.forBlock['motor_control_pwm_block'] = function(block, generator) {
+
+  const l_pwm = block.getFieldValue('L_PWM') || '0';
+  const r_pwm = block.getFieldValue('R_PWM') || '0';
   
-  // Convert milliseconds to seconds for Python's time.sleep()
-  return `time.sleep(${field_ms} / 1000.0)\n`;
+  return `robot.writeMotorPwm(${l_pwm}, ${r_pwm})\n`;
 };
 
-// --- stop_block ---
+pythonGenerator.forBlock['motor_control_vel_block'] = function(block, generator) {
+
+  const l_vel = block.getFieldValue('L_VEL') || '0.0';
+  const r_vel = block.getFieldValue('R_VEL') || '0.0';
+  
+  return `robot.writeMotorVel(${l_vel}, ${r_vel})\n`;
+};
+
 pythonGenerator.forBlock['stop_block'] = function(block, generator) {
   return `robot.stop()\n`;
 };
 
-// --- turn_block ---
-pythonGenerator.forBlock['drive_block'] = function(block, generator) {
-  // Use the 'name' from your JSON: "LINEAR" and "ANGULAR"
-  const linear_speed = block.getFieldValue('LINEAR') || '0';
-  const angular_speed = block.getFieldValue('ANGULAR') || '0';
-  
-  return `robot.drive("${linear_speed}", ${angular_speed})\n`;
-};
+// ----------------------- CONDITION -------------------------
 
-// --- if_else_block ---
 pythonGenerator.forBlock['if_else_block'] = function(block, generator) {
   // 1. Get the condition (the block plugged into the side)
   const condition = generator.valueToCode(block, 'CONDITION', pythonGenerator.ORDER_NONE) || 'False';
@@ -63,7 +59,6 @@ pythonGenerator.forBlock['if_else_block'] = function(block, generator) {
   return code;
 };
 
-// --- compare_block ---
 pythonGenerator.forBlock['compare_block'] = function(block, generator) {
   // 1. Get code for Input A and Input B
   const value_a = generator.valueToCode(block, 'A', pythonGenerator.ORDER_ATOMIC) || '0';
@@ -79,7 +74,6 @@ pythonGenerator.forBlock['compare_block'] = function(block, generator) {
   return [code, pythonGenerator.ORDER_RELATIONAL];
 };
 
-// --- integer_block ---
 pythonGenerator.forBlock['integer_block'] = function(block) {
   // Use 'INT' 
   const numberValue = block.getFieldValue('INT');
@@ -89,7 +83,6 @@ pythonGenerator.forBlock['integer_block'] = function(block) {
   return [String(numberValue), pythonGenerator.ORDER_ATOMIC];
 };
 
-// --- while_block ---
 pythonGenerator.forBlock['while_block'] = function(block, generator) {
   // 1. Get the condition (like 'distance < 10')
   const condition = generator.valueToCode(block, 'WHILE', pythonGenerator.ORDER_NONE) || 'True';
@@ -104,16 +97,70 @@ pythonGenerator.forBlock['while_block'] = function(block, generator) {
   return `while ${condition}:\n${branch}`;
 };
 
-// --- sonar_distance_read_block ---
-pythonGenerator.forBlock['sonar_distance_read_block'] = function(block) {
-  // We assume your python robot library has a function called get_sonar_distance()
-  const code = 'robot.readSonarDistance()';
+pythonGenerator.forBlock['forever_block'] = function(block, generator) {
+  // 1. Get the blocks stacked inside the 'do' pocket
+  let branch = generator.statementToCode(block, 'DO');
+  
+  // 2. Python needs 'pass' if the loop is empty to avoid a syntax error
+  branch = branch || '  pass\n';
+  
+  // 4. Return the while loop string
+  return `while True:\n${branch}`;
+};
+
+pythonGenerator.forBlock['repeat_block'] = function(block, generator) {
+
+  const num_of_repeat = block.getFieldValue('NUM_OF_REPEAT') || '0';
+  
+  // 1. Get the blocks stacked inside the 'do' pocket
+  let branch = generator.statementToCode(block, 'DO');
+  
+  // 2. Python needs 'pass' if the loop is empty to avoid a syntax error
+  branch = branch || '  pass\n';
+  
+  // 4. Return the while loop string
+  return `for _ in range(${num_of_repeat}):\n${branch}`;
+};
+
+
+// -------------------- SENSOR --------------------------
+
+pythonGenerator.forBlock['read_sonar_block'] = function(block) {
+  const code = 'robot.readSonar()';
   
   // Because this is a value, we return it in an array with its priority
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
-// --- print_block ---
+pythonGenerator.forBlock['read_line_sensor_block'] = function(block) {
+
+  const sensor_label_num = block.getFieldValue('SENSOR_LABEL_NUM');
+  const code = `robot.readLineSensor${sensor_label_num}()`;
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+
+// ------------------- OUTPUT --------------------------
+
+pythonGenerator.forBlock['buzzer_block'] = function(block, generator) {
+  const value = block.getFieldValue('VALUE');
+  
+  return `robot.writeBuzzer(${value})\n`;
+};
+
+pythonGenerator.forBlock['rgb_led_block'] = function(block, generator) {
+  const r_val = block.getFieldValue('R_VAL');
+  const g_val = block.getFieldValue('G_VAL');
+  const b_val = block.getFieldValue('B_VAL');
+  
+  return `robot.writeRGB(${r_val}, ${g_val}, ${b_val})\n`;
+};
+
+
+// ------------------- UTILITIES -------------------------
+
 pythonGenerator.forBlock['print_block'] = function(block) {
   // 1. Get the text from the input field named 'TEXT'
   const textValue = block.getFieldValue('TEXT');
@@ -121,4 +168,11 @@ pythonGenerator.forBlock['print_block'] = function(block) {
   // 2. Generate the Python print statement
   // We use backticks and quotes to make sure it's a string in Python
   return `print("${textValue}")\n`;
+};
+
+pythonGenerator.forBlock['delay_block'] = function(block, generator) {
+  const field_ms = block.getFieldValue('DELAY_MS') || '0';
+  
+  // Convert milliseconds to seconds for Python's time.sleep()
+  return `time.sleep(${field_ms} / 1000.0)\n`;
 };

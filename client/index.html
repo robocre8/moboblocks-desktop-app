@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mobo Blocks App</title>
+  <title>TexaBlocks</title>
   <script src="https://unpkg.com/blockly/blockly.min.js"></script>
   <script src="https://unpkg.com/blockly/python_compressed.js"></script>
 
@@ -19,14 +19,14 @@
 </head>
 
 <body>
-  <h2>Mobo Blocks App</h2>
+  <h2>TexaBlocks</h2>
 
   <div id="blocklyArea">
     <div id="blocklyDiv"></div>
   </div>
   
   <div class="button-container">
-    <button class="send-btn" onclick="moboBlockSendCode(event)">
+    <button class="send-btn" onclick="blocksSendCode(event)">
        <span>🚀</span> Convert And Send Code
     </button>
     
@@ -45,7 +45,7 @@
     // --- 3. DEFINE THE TOOLBOX ---
     // --- 4. INJECT BLOCKLY ---
     const workspace = Blockly.inject('blocklyDiv', { 
-        toolbox: moboBlocksToolbox,
+        toolbox: blocksToolbox,
         trashcan: true,           // Shows the trashcan in the corner
         
         // --- ADD SCROLLING HERE ---

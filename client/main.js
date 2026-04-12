@@ -43,7 +43,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 900,
-    title: "Mobo Blocks Desktop",
+    title: "TexaBlocks Desktop",
     // webPreferences: {
     //   nodeIntegration: true,
     //   contextIsolation: false

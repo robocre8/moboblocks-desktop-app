@@ -1,340 +1,526 @@
-const moboBlockDefinitions = [
-  {
-    "type": "move_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "MOVE %1 Direction: %2 %3 Speed (m/s): %4 %5",
-    "args0": [
-      {
-        "type": "input_dummy",
-        "name": "move_label"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "DIRECTION",
-        "options": [
-          [
-            "forward",
-            "FORWARD"
-          ],
-          [
-            "backward",
-            "BACKWARD"
-          ],
-          [
-            "",
-            ""
-          ]
+// ---------- MOVEMENTS ------------
+
+const servo_angle_block = {
+  "type": "servo_angle_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "servo %1 angle %2 %3",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "LABEL_NUM",
+      "options": [
+        [
+          "A",
+          "1"
+        ],
+        [
+          "B",
+          "2"
         ]
-      },
-      {
-        "type": "input_dummy",
-        "name": "move_direction"
-      },
-      {
-        "type": "field_number",
-        "name": "SPEED",
-        "value": 0.1,
-        "min": 0.0,
-        "max": 0.3,
-        "precision": 0.01
-      },
-      {
-        "type": "input_dummy",
-        "name": "move_speed"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 225
-  },
+      ]
+    },
+    {
+      "type": "field_number",
+      "name": "ANGLE",
+      "value": 0,
+      "min": -90,
+      "max": 90
+    },
+    {
+      "type": "input_dummy",
+      "name": "servo angle"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 225
+}
 
-  {
-    "type": "turn_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "TURN %1 Direction: %2 %3 Speed (rad/s):  %4 %5",
-    "args0": [
-      {
-        "type": "input_dummy",
-        "name": "turn_label"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "DIRECTION",
-        "options": [
-          [
-            "left",
-            "LEFT"
-          ],
-          [
-            "right",
-            "RIGHT"
-          ]
+const motor_control_pwm_block = {
+  "type": "motor_control_pwm_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "motor control (PWM):   L %1 R %2 %3",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "L_PWM",
+      "value": 100,
+      "min": -255,
+      "max": 255,
+      "precision": 1
+    },
+    {
+      "type": "field_number",
+      "name": "R_PWM",
+      "value": 100,
+      "min": -255,
+      "max": 255,
+      "precision": 1
+    },
+    {
+      "type": "input_dummy",
+      "name": "motor control_pwm"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 225
+}
+
+const motor_control_vel_block = {
+  "type": "motor_control_vel_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "motor control (VEL):   L %1 R %2 %3",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "L_VEL",
+      "value": 3.14,
+      "min": -8.00,
+      "max": 8.00,
+      "precision": 0.01
+    },
+    {
+      "type": "field_number",
+      "name": "R_VEL",
+      "value": 3.14,
+      "min": -8.00,
+      "max": 8.00,
+      "precision": 0.01
+    },
+    {
+      "type": "input_dummy",
+      "name": "motor control_vel"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 225
+}
+
+const robot_control_block = {
+  "type": "robot_control_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "robot control:   V %1 W %2 %3",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "LINEAR",
+      "value": 0.1,
+      "min": -0.3,
+      "max": 0.3,
+      "precision": 0.01
+    },
+    {
+      "type": "field_number",
+      "name": "ANGULAR",
+      "value": 0.5,
+      "min": -0.9,
+      "max": 0.9,
+      "precision": 0.05
+    },
+    {
+      "type": "input_dummy",
+      "name": "robot_control"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 45
+}
+
+const stop_block = {
+  "type": "stop_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "stop %1",
+  "args0": [
+    {
+      "type": "input_dummy",
+      "name": "stop_label"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 0
+}
+
+
+// ---------- CONDITIONS ------------------
+
+const if_else_block = {
+  "type": "if_else_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "if %1 do %2 else %3",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "CONDITION",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_statement",
+      "name": "DO"
+    },
+    {
+      "type": "input_statement",
+      "name": "ELSE"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 225
+}
+
+const compare_block = {
+  "type": "compare_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "%1 %2 %3 %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "A",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "OPTION",
+      "options": [
+        [
+          "equal to",
+          "=="
+        ],
+        [
+          "not equal to",
+          "!="
+        ],
+        [
+          "greater than",
+          ">"
+        ],
+        [
+          "greater or equal to",
+          ">="
+        ],
+        [
+          "less than",
+          "<"
+        ],
+        [
+          "less or equal to",
+          "<="
         ]
-      },
-      {
-        "type": "input_dummy",
-        "name": "turn_direction"
-      },
-      {
-        "type": "field_number",
-        "name": "SPEED",
-        "value": 0.5,
-        "min": 0,
-        "max": 0.9,
-        "precision": 0.05
-      },
-      {
-        "type": "input_dummy",
-        "name": "turn_speed"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 90
-  },
-  
-  {
-    "type": "delay_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "Delay: %1 %2",
-    "args0": [
-      {
-        "type": "field_number",
-        "name": "DELAY_MS",
-        "value": 1000,
-        "min": 0,
-        "max": 10000,
-        "precision": 100
-      },
-      {
-        "type": "input_dummy",
-        "name": "delay_time"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 180
-  },
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "name": "OPT"
+    },
+    {
+      "type": "input_value",
+      "name": "B",
+      "check": "Number"
+    }
+  ],
+  "output": null,
+  "colour": 225
+}
 
-  {
-    "type": "stop_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "STOP %1",
-    "args0": [
-      {
-        "type": "input_dummy",
-        "name": "stop_label"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 0
-  },
+const integer_block = {
+  "type": "integer_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "int %1 %2",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "INT",
+      "value": 1,
+      "min": -10000,
+      "max": 10000,
+      "precision": 1
+    },
+    {
+      "type": "input_dummy",
+      "name": "NUMBER"
+    }
+  ],
+  "output": "Number",
+  "colour": 60
+}
 
-  {
-    "type": "drive_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "DRIVE %1 Linear (m/s): %2 %3 Angular (rad/s): %4 %5",
-    "args0": [
-      {
-        "type": "input_dummy",
-        "name": "drive_label"
-      },
-      {
-        "type": "field_number",
-        "name": "LINEAR",
-        "value": 0.1,
-        "min": -0.3,
-        "max": 0.3,
-        "precision": 0.01
-      },
-      {
-        "type": "input_dummy",
-        "name": "drive_linear"
-      },
-      {
-        "type": "field_number",
-        "name": "ANGULAR",
-        "value": 0.5,
-        "min": -0.9,
-        "max": 0.9,
-        "precision": 0.05
-      },
-      {
-        "type": "input_dummy",
-        "name": "drive_angular"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 45
-  },
+const while_block = {
+  "type": "while_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "while %1 do %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "WHILE",
+      "check": "Boolean"
+    },
+    {
+      "type": "input_statement",
+      "name": "DO"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 285
+}
 
-  {
-    "type": "if_else_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "if %1 do %2 else %3",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "CONDITION",
-        "check": "Boolean"
-      },
-      {
-        "type": "input_statement",
-        "name": "DO"
-      },
-      {
-        "type": "input_statement",
-        "name": "ELSE"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 225
-  },
+const forever_block = {
+  "type": "forever_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "forever %1 do %2",
+  "args0": [
+    {
+      "type": "input_dummy",
+      "name": "FOREVER"
+    },
+    {
+      "type": "input_statement",
+      "name": "DO"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 315
+}
 
-  {
-    "type": "compare_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "%1 %2 %3 %4",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "A",
-        "check": "Number"
-      },
-      {
-        "type": "field_dropdown",
-        "name": "OPTION",
-        "options": [
-          [
-            "equal to",
-            "=="
-          ],
-          [
-            "not equal to",
-            "!="
-          ],
-          [
-            "greater than",
-            ">"
-          ],
-          [
-            "greater or equal to",
-            ">="
-          ],
-          [
-            "less than",
-            "<"
-          ],
-          [
-            "less or equal to",
-            "<="
-          ]
+const repeat_block = {
+  "type": "repeat_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "repeat %1 %2 do %3",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "NUM_OF_REPEAT",
+      "value": 0,
+      "min": 0,
+      "max": 20,
+      "precision": 1
+    },
+    {
+      "type": "input_dummy",
+      "name": "REPEAT"
+    },
+    {
+      "type": "input_statement",
+      "name": "DO"
+    }
+  ],
+  "colour": 330
+}
+
+// ------------ SENSOR ----------------
+
+const read_sonar_block = {
+  "type": "read_sonar_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "read sonar %1",
+  "args0": [
+    {
+      "type": "input_dummy",
+      "name": "SONAR_DISTANCE"
+    }
+  ],
+  "output": null,
+  "colour": 165
+}
+
+const read_line_sensor_block = {
+  "type": "read_line_sensor_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "read line sensor %1 %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "SENSOR_LABEL_NUM",
+      "options": [
+        [
+          "A",
+          "1"
+        ],
+        [
+          "B",
+          "2"
         ]
-      },
-      {
-        "type": "input_dummy",
-        "name": "OPT"
-      },
-      {
-        "type": "input_value",
-        "name": "B",
-        "check": "Number"
-      }
-    ],
-    "output": null,
-    "colour": 225
-  },
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "name": "NAME"
+    }
+  ],
+  "output": null,
+  "colour": 225
+}
 
-  {
-    "type": "integer_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "Integer %1 %2",
-    "args0": [
-      {
-        "type": "field_number",
-        "name": "INT",
-        "value": 1,
-        "min": -10000,
-        "max": 10000,
-        "precision": 1
-      },
-      {
-        "type": "input_dummy",
-        "name": "NUMBER"
-      }
-    ],
-    "output": "Number",
-    "colour": 60
-  },
-  
-  {
-    "type": "while_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "while %1 do %2",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "WHILE",
-        "check": "Boolean"
-      },
-      {
-        "type": "input_statement",
-        "name": "DO"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 285
-  },
 
-  {
-    "type": "sonar_distance_read_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "READ SONAR DIST %1",
-    "args0": [
-      {
-        "type": "input_dummy",
-        "name": "SONAR_DISTANCE"
-      }
-    ],
-    "output": null,
-    "colour": 165
-  },
+// ----------- OUTPUTS ----------------
+
+const buzzer_block = {
+  "type": "buzzer_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "buzzer %1 %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "VALUE",
+      "options": [
+        [
+          "ON",
+          "1"
+        ],
+        [
+          "OFF",
+          "0"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "name": "BUZZER"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 225
+}
+
+const rgb_led_block = {
+  "type": "rgb_led_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "rgb led %1 %2 %3 %4",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "R_VAL",
+      "value": 0,
+      "min": 0,
+      "max": 255,
+      "precision": 1
+    },
+    {
+      "type": "field_number",
+      "name": "G_VAL",
+      "value": 0,
+      "min": 0,
+      "max": 255,
+      "precision": 1
+    },
+    {
+      "type": "field_number",
+      "name": "B_VAL",
+      "value": 0,
+      "min": 0,
+      "max": 255,
+      "precision": 1
+    },
+    {
+      "type": "input_dummy",
+      "name": "rgb led"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 225
+}
+
+
+// ----------- UTILITIES ---------------
+
+const delay_block = {
+  "type": "delay_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "delay %1 %2",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "DELAY_MS",
+      "value": 1000,
+      "min": 0,
+      "max": 10000,
+      "precision": 100
+    },
+    {
+      "type": "input_dummy",
+      "name": "delay_time"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 180
+}
+
+const print_block = {
+  "type": "print_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "print %1 %2",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "TEXT",
+      "text": "enter text"
+    },
+    {
+      "type": "input_dummy",
+      "name": "PRINT"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 330
+}
+
+// --------------------------------
+
+
+
+//---------------------------------------------------------
+//        BLOCKS DEFINITIONS
+//---------------------------------------------------------
+
+const blocksDefinitions = [
+  if_else_block,
+  forever_block,
+  repeat_block,
+  while_block,
+  compare_block,
+  integer_block,
+
+  servo_angle_block,
+  motor_control_pwm_block,
+  motor_control_vel_block,
+  robot_control_block,
+  stop_block,
+
+  read_sonar_block,
+  read_line_sensor_block,
+
+  buzzer_block,
+  rgb_led_block,
   
-  {
-    "type": "print_block",
-    "tooltip": "",
-    "helpUrl": "",
-    "message0": "PRINT %1 %2",
-    "args0": [
-      {
-        "type": "field_input",
-        "name": "TEXT",
-        "text": "enter text"
-      },
-      {
-        "type": "input_dummy",
-        "name": "PRINT"
-      }
-    ],
-    "previousStatement": null,
-    "nextStatement": null,
-    "colour": 330
-  }
-                    
+  delay_block,
+  print_block,              
 ];
 
-Blockly.defineBlocksWithJsonArray(moboBlockDefinitions);
+Blockly.defineBlocksWithJsonArray(blocksDefinitions);
+
+//---------------------------------------------------------
