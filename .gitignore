@@ -1,5 +1,6 @@
 .vscode*
 server/__pycache__*
 server/.env*
+server/robot_program.py
 client/package-lock.json
 client/node_modules*

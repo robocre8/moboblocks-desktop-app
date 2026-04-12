@@ -39,31 +39,31 @@ async def run_robot(payload: CodePayload):
     print(payload.code)
     print("--------------------------------------")
 
-    # with open("robot_program.py", "w") as f:
-    #     # 1. Setup and Connection
-    #     f.write('from texabot_client import TexaBotClient\n')
-    #     f.write('import time, sys\n\n')
-    #     f.write('robot = TexaBotClient()\n')
+    with open("robot_program.py", "w") as f:
+        # 1. Setup and Connection
+        f.write('from texabot_client import TexaBotClient\n')
+        f.write('import time, sys\n\n')
+        f.write('robot = TexaBotClient()\n')
         
-    #     # 2. Wrap the user code in a Try block
-    #     f.write('try:\n')
-    #     f.write('    robot.connect("texabot.local", 8888, 0.018)\n')
-    #     f.write('    robot.start_heartbeat()\n')
-    #     f.write('    time.sleep(1.0)\n')
+        # 2. Wrap the user code in a Try block
+        f.write('try:\n')
+        f.write('    robot.connect("texabot.local", 8888, 0.018)\n')
+        f.write('    robot.start_heartbeat()\n')
+        f.write('    time.sleep(1.0)\n')
         
-    #     # 3. Indent the user's Blockly code so it sits inside the 'try'
-    #     # This prepends 4 spaces to every line of the generated code
-    #     indented_code = "\n".join([f"    {line}" for line in payload.code.splitlines()])
-    #     f.write(f"{indented_code}\n")
+        # 3. Indent the user's Blockly code so it sits inside the 'try'
+        # This prepends 4 spaces to every line of the generated code
+        indented_code = "\n".join([f"    {line}" for line in payload.code.splitlines()])
+        f.write(f"{indented_code}\n")
         
-    #     # 4. The Safety Catch: Always runs, even if the process is killed
-    #     f.write('finally:\n')
-    #     f.write('    print("STOPPING ROBOT FOR SAFETY...")\n')
-    #     f.write('    try:\n')
-    #     f.write('        robot.stop() # Or your specific stop command\n')
-    #     f.write('        time.sleep(0.1)\n')
-    #     f.write('    except:\n')
-    #     f.write('        pass\n')
+        # 4. The Safety Catch: Always runs, even if the process is killed
+        f.write('finally:\n')
+        f.write('    print("STOPPING ROBOT FOR SAFETY...")\n')
+        f.write('    try:\n')
+        f.write('        robot.stop()\n')
+        f.write('        time.sleep(0.1)\n')
+        f.write('    except:\n')
+        f.write('        pass\n')
 
     # # 2. Start the new process
     # global current_robot_process
