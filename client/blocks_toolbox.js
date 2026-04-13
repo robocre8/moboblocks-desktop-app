@@ -9,7 +9,7 @@
 //   ]
 // };
 
-const blocksToolbox = {
+export const blocksToolbox = {
   "kind": "categoryToolbox",
   "contents": [
     {

@@ -6,7 +6,7 @@ try:
     robot.connect("texabot.local", 8888, 0.018)
     robot.start_heartbeat()
     time.sleep(1.0)
-    robot.readSonar()
+    robot.readLineSensor1()
 finally:
     print("STOPPING ROBOT FOR SAFETY...")
     try:

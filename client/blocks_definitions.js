@@ -1,6 +1,6 @@
 // ---------- MOVEMENTS ------------
 
-const servo_angle_block = {
+export const servo_angle_block = {
   "type": "servo_angle_block",
   "tooltip": "",
   "helpUrl": "",
@@ -37,7 +37,7 @@ const servo_angle_block = {
   "colour": 225
 }
 
-const motor_control_pwm_block = {
+export const motor_control_pwm_block = {
   "type": "motor_control_pwm_block",
   "tooltip": "",
   "helpUrl": "",
@@ -69,7 +69,7 @@ const motor_control_pwm_block = {
   "colour": 225
 }
 
-const motor_control_vel_block = {
+export const motor_control_vel_block = {
   "type": "motor_control_vel_block",
   "tooltip": "",
   "helpUrl": "",
@@ -101,7 +101,7 @@ const motor_control_vel_block = {
   "colour": 225
 }
 
-const robot_control_block = {
+export const robot_control_block = {
   "type": "robot_control_block",
   "tooltip": "",
   "helpUrl": "",
@@ -133,7 +133,7 @@ const robot_control_block = {
   "colour": 45
 }
 
-const stop_block = {
+export const stop_block = {
   "type": "stop_block",
   "tooltip": "",
   "helpUrl": "",
@@ -152,7 +152,7 @@ const stop_block = {
 
 // ---------- CONDITIONS ------------------
 
-const if_else_block = {
+export const if_else_block = {
   "type": "if_else_block",
   "tooltip": "",
   "helpUrl": "",
@@ -177,7 +177,7 @@ const if_else_block = {
   "colour": 225
 }
 
-const compare_block = {
+export const compare_block = {
   "type": "compare_block",
   "tooltip": "",
   "helpUrl": "",
@@ -232,7 +232,7 @@ const compare_block = {
   "colour": 225
 }
 
-const integer_block = {
+export const integer_block = {
   "type": "integer_block",
   "tooltip": "",
   "helpUrl": "",
@@ -255,7 +255,7 @@ const integer_block = {
   "colour": 60
 }
 
-const while_block = {
+export const while_block = {
   "type": "while_block",
   "tooltip": "",
   "helpUrl": "",
@@ -276,7 +276,7 @@ const while_block = {
   "colour": 285
 }
 
-const forever_block = {
+export const forever_block = {
   "type": "forever_block",
   "tooltip": "",
   "helpUrl": "",
@@ -296,7 +296,7 @@ const forever_block = {
   "colour": 315
 }
 
-const repeat_block = {
+export const repeat_block = {
   "type": "repeat_block",
   "tooltip": "",
   "helpUrl": "",
@@ -324,7 +324,7 @@ const repeat_block = {
 
 // ------------ SENSOR ----------------
 
-const read_sonar_block = {
+export const read_sonar_block = {
   "type": "read_sonar_block",
   "tooltip": "",
   "helpUrl": "",
@@ -339,7 +339,7 @@ const read_sonar_block = {
   "colour": 165
 }
 
-const read_line_sensor_block = {
+export const read_line_sensor_block = {
   "type": "read_line_sensor_block",
   "tooltip": "",
   "helpUrl": "",
@@ -371,7 +371,7 @@ const read_line_sensor_block = {
 
 // ----------- OUTPUTS ----------------
 
-const buzzer_block = {
+export const buzzer_block = {
   "type": "buzzer_block",
   "tooltip": "",
   "helpUrl": "",
@@ -401,7 +401,7 @@ const buzzer_block = {
   "colour": 225
 }
 
-const rgb_led_block = {
+export const rgb_led_block = {
   "type": "rgb_led_block",
   "tooltip": "",
   "helpUrl": "",
@@ -444,7 +444,7 @@ const rgb_led_block = {
 
 // ----------- UTILITIES ---------------
 
-const delay_block = {
+export const delay_block = {
   "type": "delay_block",
   "tooltip": "",
   "helpUrl": "",
@@ -468,7 +468,7 @@ const delay_block = {
   "colour": 180
 }
 
-const print_block = {
+export const print_block = {
   "type": "print_block",
   "tooltip": "",
   "helpUrl": "",
@@ -490,37 +490,3 @@ const print_block = {
 }
 
 // --------------------------------
-
-
-
-//---------------------------------------------------------
-//        BLOCKS DEFINITIONS
-//---------------------------------------------------------
-
-const blocksDefinitions = [
-  if_else_block,
-  forever_block,
-  repeat_block,
-  while_block,
-  compare_block,
-  integer_block,
-
-  servo_angle_block,
-  motor_control_pwm_block,
-  motor_control_vel_block,
-  robot_control_block,
-  stop_block,
-
-  read_sonar_block,
-  read_line_sensor_block,
-
-  buzzer_block,
-  rgb_led_block,
-  
-  delay_block,
-  print_block,              
-];
-
-Blockly.defineBlocksWithJsonArray(blocksDefinitions);
-
-//---------------------------------------------------------

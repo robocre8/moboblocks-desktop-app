@@ -3,6 +3,8 @@ import struct
 from time import sleep, time
 from math import pi
 import threading
+# import cv2
+
 
 
 class TexaBotClient:
@@ -289,3 +291,35 @@ class TexaBotClient:
             self.writeMotorPwm(0, 0)
         else:
             self.writeMotorVel(0.0, 0.0)
+
+
+
+
+
+
+
+
+# class TexaBotCamClient:
+#     def __init__(self):
+#         self.cap = None
+
+#     def startCapture(self, ip: str):
+#         self.cap = cv2.VideoCapture(f'http://{ip}:81/stream')
+#         self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+
+#     # ------------------ CONNECT ------------------
+#     def streamImg(self):
+
+#         ret, frame = self.cap.read()
+
+#         if not ret:
+#             return
+
+#         cv2.imshow("TEXABOT-CAM", frame)
+
+#         if cv2.waitKey(1) == 27:
+#             return
+
+#     def stopStreamImg(self):
+#         self.cap.release()
+#         cv2.destroyAllWindows()

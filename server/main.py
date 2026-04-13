@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import subprocess
 import os
+import sys
 
 # Global variable to track the currently running robot process
 current_robot_process = None
@@ -33,7 +34,7 @@ def stop_existing_process():
 @app.post("/code")
 async def run_robot(payload: CodePayload):
     # 1. Ensure any old code stops running first
-    # stop_existing_process()
+    stop_existing_process()
 
     print("--- RECEIVED NEW CODE FROM BLOCKLY ---")
     print(payload.code)
@@ -65,11 +66,13 @@ async def run_robot(payload: CodePayload):
         f.write('    except:\n')
         f.write('        pass\n')
 
-    # # 2. Start the new process
+    # 2. Start the new process
+
     # global current_robot_process
-    # # Use "python" if you are on Windows, "python3" for Linux/Mac
-    # current_robot_process = subprocess.Popen(["python3", "robot_program.py"])
-    
+    # # sys.executable automatically handles Windows vs Linux AND 
+    # # ensures the robot program uses your .venv libraries.
+    # current_robot_process = subprocess.Popen([sys.executable, "robot_program.py"])
+
     # return {"status": "Running", "pid": current_robot_process.pid}
 
     return {"status": "Received", "received_code": payload.code}

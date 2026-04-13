@@ -2,20 +2,15 @@
 <html>
 <head>
   <title>TexaBlocks</title>
-  <script src="https://unpkg.com/blockly/blockly.min.js"></script>
-  <script src="https://unpkg.com/blockly/python_compressed.js"></script>
 
-  <script src="./blocks_definitions.js"></script>
-  <script src="./blocks_generator.js"></script>
-  <script src="./blocks_toolbox.js"></script>
-  <script src="./blocks_sendcode.js"></script>
+  <script src="./node_modules/blockly/blockly_compressed.js"></script>
+  <script src="./node_modules/blockly/python_compressed.js"></script>
+  <script src="./node_modules/blockly/blocks_compressed.js"></script>
+  <script src="./node_modules/blockly/msg/en.js"></script>
+  <script src="./node_modules/blockly/themes/modern.js"></script>
 
+  <script type="module" src="./blocks_main.js"></script>
   <link rel="stylesheet" href="./styles.css">
-
-  <!-- <style>
-      #blocklyDiv { height: 600px; width: 100%; border: 1px solid #ccc; }
-  </style> -->
-    
 </head>
 
 <body>
@@ -26,54 +21,14 @@
   </div>
   
   <div class="button-container">
-    <button class="send-btn" onclick="blocksSendCode(event)">
+    <button class="send-btn" id="send-btn-id" onclick="blocksSendCode(event)">
        <span>🚀</span> Convert And Send Code
     </button>
     
-    <button class="clear-btn" onclick="clearMoboBlocks()">
+    <button class="clear-btn" id="clear-btn-id" onclick="clearMoboBlocks()">
        <span>🗑️</span> Clear Workspace
     </button>
   </div>
   
-  <!-- <div id="blocklyDiv"></div>
-  
-  <button onclick="moboBlockSendCode()">Convert And Send Python Code</button> -->
-
-  <script>
-    // --- 1. PASTE YOUR BLOCK DEFINITIONS (JSON) HERE ---
-    // --- 2. PASTE YOUR GENERATOR STUBS HERE ---
-    // --- 3. DEFINE THE TOOLBOX ---
-    // --- 4. INJECT BLOCKLY ---
-    const workspace = Blockly.inject('blocklyDiv', { 
-        toolbox: blocksToolbox,
-        trashcan: true,           // Shows the trashcan in the corner
-        
-        // --- ADD SCROLLING HERE ---
-        move: {
-            scrollbars: {
-                vertical: true,
-                horizontal: true
-            },
-            drag: true,           // Allows clicking and dragging the background to pan
-            wheel: true           // Allows using the mouse wheel to scroll/zoom
-        },
-        zoom: {
-            controls: true,       // Shows +/- zoom buttons
-            wheel: true,          // Zoom with mouse wheel
-            startScale: 1.0,
-            maxScale: 3,
-            minScale: 0.3,
-            scaleSpeed: 1.2
-        }
-    });
-    // --- 5. HELPER TO SEE THE RESULT ---
-    // function showCode() {
-    //   const code = pythonGenerator.workspaceToCode(workspace);
-    //   alert(code);
-    // }
-    window.addEventListener('resize', () => {
-      Blockly.svgResize(workspace);
-    });
-  </script>
 </body>
 </html>

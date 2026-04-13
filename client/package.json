@@ -5,14 +5,16 @@
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --ext js,css,html --exec electron .",
+    "dev": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^41.0.3",
-    "nodemon": "^3.1.14"
+    "electron": "^41.0.3"
+  },
+  "dependencies": {
+    "blockly": "^12.5.1"
   }
 }

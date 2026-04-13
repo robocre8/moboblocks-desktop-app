@@ -44,15 +44,14 @@ function createWindow() {
     width: 1200,
     height: 900,
     title: "TexaBlocks Desktop",
-    // webPreferences: {
-    //   nodeIntegration: true,
-    //   contextIsolation: false
-    // }
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
   });
 
   // Load your Blockly frontend
   win.loadFile(path.join(__dirname, 'index.html'));
-  // win.loadFile('index.html');
 }
 
 app.whenReady().then(() => {
