@@ -68,10 +68,10 @@ async def run_robot(payload: CodePayload):
 
     # 2. Start the new process
 
-    # global current_robot_process
-    # # sys.executable automatically handles Windows vs Linux AND 
-    # # ensures the robot program uses your .venv libraries.
-    # current_robot_process = subprocess.Popen([sys.executable, "robot_program.py"])
+    global current_robot_process
+    # sys.executable automatically handles Windows vs Linux AND 
+    # ensures the robot program uses your .venv libraries.
+    current_robot_process = subprocess.Popen([sys.executable, "robot_program.py"])
 
     # return {"status": "Running", "pid": current_robot_process.pid}
 

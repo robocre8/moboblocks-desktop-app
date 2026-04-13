@@ -6,8 +6,8 @@
   <script src="./node_modules/blockly/blockly_compressed.js"></script>
   <script src="./node_modules/blockly/python_compressed.js"></script>
   <script src="./node_modules/blockly/blocks_compressed.js"></script>
-  <script src="./node_modules/blockly/msg/en.js"></script>
-  <script src="./node_modules/blockly/themes/modern.js"></script>
+  <!-- <script src="./node_modules/blockly/msg/en.js"></script> -->
+  <!-- <script src="./node_modules/blockly/themes/modern.js"></script> -->
 
   <script type="module" src="./blocks_main.js"></script>
   <link rel="stylesheet" href="./styles.css">
@@ -21,12 +21,20 @@
   </div>
   
   <div class="button-container">
-    <button class="send-btn" id="send-btn-id" onclick="blocksSendCode(event)">
-       Send Code
+    <button class="send-btn" id="send-btn-id" onclick="sendBlocks(event)">
+       🚀 Send Blocks
     </button>
     
-    <button class="clear-btn" id="clear-btn-id" onclick="clearMoboBlocks()">
-       Clear Workspace
+    <button class="clear-btn" id="clear-btn-id" onclick="clearBlocks()">
+       🗑️ Clear Blocks
+    </button>
+
+    <button class="save-btn" id="save-btn-id" onclick="saveBlocks()">
+      💾 Save Blocks
+    </button>
+
+    <button class="open-btn" id="open-btn-id"  onclick="openBlocks()">
+      📂 Open Blocks
     </button>
   </div>
   

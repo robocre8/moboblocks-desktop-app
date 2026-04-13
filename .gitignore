@@ -1,5 +1,5 @@
 .vscode*
 server/__pycache__*
 server/.env*
-server/robot_program.py
+server/robot_program*
 client/node_modules*

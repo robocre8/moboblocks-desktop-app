@@ -1,3 +1,10 @@
+// 1. Use the global require for Electron-specific modules
+const remote = window.require('@electron/remote');
+const { dialog } = remote;
+
+// 2. Use the global require for Node modules
+const fs = window.require('fs');
+
 import {blocksToolbox} from './blocks_toolbox.js';
 import {
   if_else_block,
@@ -122,7 +129,7 @@ window.addEventListener('resize', () => {
 //        BLOCKS FUNCTIONS
 //---------------------------------------------------------
 
-async function blocksSendCode(event) {
+async function sendBlocks(event) {
   if (event) event.preventDefault(); 
   
   try {
@@ -143,9 +150,6 @@ async function blocksSendCode(event) {
     console.error("Detailed Error:", error);
   }
 }
-// document.getElementById('send-btn').addEventListener('click', (event) => {
-//     blocksSendCode(event);
-// });
 
 
 function clearBlocks() {
@@ -154,18 +158,49 @@ function clearBlocks() {
         console.log("Cleared");
     }
 }
-// document.getElementById('clear-btn').addEventListener('click', () => {
-//     clearBlocks(); 
-// });
+
+async function saveBlocks() {
+  const { filePath } = await dialog.showSaveDialog({
+    title: 'Save TexaBlocks Project',
+    defaultPath: 'my_robot_program.json',
+    filters: [{ name: 'TexaBlocks Files', extensions: ['json', 'texa'] }]
+  });
+
+  if (filePath) {
+    const state = Blockly.serialization.workspaces.save(workspace);
+    const data = JSON.stringify(state, null, 2); // Prettify the JSON
+    fs.writeFileSync(filePath, data);
+    console.log("Saved to:", filePath);
+  }
+}
+
+async function openBlocks() {
+  const { filePaths } = await dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [{ name: 'TexaBlocks Files', extensions: ['json', 'texa'] }]
+  });
+
+  if (filePaths && filePaths.length > 0) {
+    const data = fs.readFileSync(filePaths[0], 'utf8');
+    const json = JSON.parse(data);
+    
+    // Clear the current workspace before loading the new one
+    workspace.clear();
+    Blockly.serialization.workspaces.load(json, workspace);
+    console.log("Loaded:", filePaths[0]);
+  }
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('send-btn-id');
     const clearBtn = document.getElementById('clear-btn-id');
+    const saveBtn = document.getElementById('save-btn-id');
+    const openBtn = document.getElementById('open-btn-id');
 
     if (sendBtn) {
         sendBtn.addEventListener('click', (event) => {
-            blocksSendCode(event);
+            sendBlocks(event);
         });
     }
 
@@ -174,4 +209,17 @@ document.addEventListener('DOMContentLoaded', () => {
             clearBlocks(); 
         });
     }
+
+    if (saveBtn) {
+        saveBtn.addEventListener('click', () => {
+            saveBlocks(); 
+        });
+    }
+
+    if (openBtn) {
+        openBtn.addEventListener('click', () => {
+            openBlocks();
+        });
+    }
+
 });
