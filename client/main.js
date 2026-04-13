@@ -3,6 +3,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawn } from 'node:child_process';
 
+import * as remoteMain from '@electron/remote/main/index.js';
+remoteMain.initialize();
+
 // --- ADD THESE TWO LINES ---
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,14 +44,17 @@ function startBackend() {
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1200,
-    height: 900,
+    width: 1500,
+    height: 1000,
     title: "TexaBlocks Desktop",
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      enableRemoteModule: true,
     }
   });
+
+  remoteMain.enable(win.webContents);
 
   // Load your Blockly frontend
   win.loadFile(path.join(__dirname, 'index.html'));
