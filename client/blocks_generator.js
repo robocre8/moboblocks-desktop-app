@@ -1,4 +1,8 @@
-const pythonGenerator = Blockly.Python; 
+//---------------------------------------------------------
+//        BLOCKS PYTHON GENERATORS
+//---------------------------------------------------------
+
+const pythonGenerator = Blockly.Python;
 
 // ----------------------- MOVEMENTS -------------------------
 pythonGenerator.forBlock['robot_control_block'] = function(block, generator) {
@@ -176,3 +180,7 @@ pythonGenerator.forBlock['delay_block'] = function(block, generator) {
   // Convert milliseconds to seconds for Python's time.sleep()
   return `time.sleep(${field_ms} / 1000.0)\n`;
 };
+
+//---------------------------------------------------------
+
+export {pythonGenerator};

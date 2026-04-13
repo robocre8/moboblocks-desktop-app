@@ -9,13 +9,15 @@
 //   ]
 // };
 
-const blocksToolbox = {
+// math 230
+
+export const blocksToolbox = {
   "kind": "categoryToolbox",
   "contents": [
     {
       "kind": "category",
       "name": "Movements",
-      "colour": "160",
+      "colour": "210",
       "contents": [
         { "kind": "block", "type": "servo_angle_block" },
         { "kind": "block", "type": "motor_control_pwm_block" },
@@ -27,7 +29,7 @@ const blocksToolbox = {
     {
       "kind": "category",
       "name": "Sensors",
-      "colour": "160",
+      "colour": "120",
       "contents": [
         { "kind": "block", "type": "read_sonar_block" },
         { "kind": "block", "type": "read_line_sensor_block" },
@@ -36,7 +38,7 @@ const blocksToolbox = {
     {
       "kind": "category",
       "name": "Outputs",
-      "colour": "160",
+      "colour": "290",
       "contents": [
         { "kind": "block", "type": "buzzer_block" },
         { "kind": "block", "type": "rgb_led_block" },
@@ -45,7 +47,7 @@ const blocksToolbox = {
     {
       "kind": "category",
       "name": "Logic",
-      "colour": "210",
+      "colour": "45",
       "contents": [
         { "kind": "block", "type": "if_else_block" },
         { "kind": "block", "type": "forever_block" },
@@ -58,7 +60,7 @@ const blocksToolbox = {
     {
       "kind": "category",
       "name": "Utilities",
-      "colour": "160",
+      "colour": "180",
       "contents": [
         { "kind": "block", "type": "delay_block" },
         { "kind": "block", "type": "print_block" },
