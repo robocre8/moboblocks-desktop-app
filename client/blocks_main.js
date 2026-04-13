@@ -137,7 +137,7 @@ async function blocksSendCode(event) {
 
     if (response.ok) {
       console.log("Code Sent Successfully");
-      // alert("Code Sent Successfully");
+      alert("Code Sent Successfully");
     }
   } catch (error) {
     console.error("Detailed Error:", error);

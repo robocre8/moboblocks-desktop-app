@@ -34,7 +34,7 @@ export const servo_angle_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  "colour": 210
 }
 
 export const motor_control_pwm_block = {
@@ -66,7 +66,7 @@ export const motor_control_pwm_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  "colour": 210
 }
 
 export const motor_control_vel_block = {
@@ -98,7 +98,7 @@ export const motor_control_vel_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  "colour": 210
 }
 
 export const robot_control_block = {
@@ -130,7 +130,7 @@ export const robot_control_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 45
+  "colour": 210
 }
 
 export const stop_block = {
@@ -174,7 +174,7 @@ export const if_else_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  "colour": 45
 }
 
 export const compare_block = {
@@ -229,7 +229,7 @@ export const compare_block = {
     }
   ],
   "output": null,
-  "colour": 225
+  "colour": 45
 }
 
 export const integer_block = {
@@ -252,7 +252,7 @@ export const integer_block = {
     }
   ],
   "output": "Number",
-  "colour": 60
+  "colour": 45
 }
 
 export const while_block = {
@@ -273,7 +273,7 @@ export const while_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 285
+  "colour": 45
 }
 
 export const forever_block = {
@@ -293,7 +293,7 @@ export const forever_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 315
+  "colour": 45
 }
 
 export const repeat_block = {
@@ -319,7 +319,7 @@ export const repeat_block = {
       "name": "DO"
     }
   ],
-  "colour": 330
+  "colour": 45
 }
 
 // ------------ SENSOR ----------------
@@ -336,7 +336,7 @@ export const read_sonar_block = {
     }
   ],
   "output": null,
-  "colour": 165
+  "colour": 120
 }
 
 export const read_line_sensor_block = {
@@ -365,7 +365,7 @@ export const read_line_sensor_block = {
     }
   ],
   "output": null,
-  "colour": 225
+  "colour": 120
 }
 
 
@@ -398,7 +398,7 @@ export const buzzer_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  "colour": 290
 }
 
 export const rgb_led_block = {
@@ -438,7 +438,7 @@ export const rgb_led_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  "colour": 290
 }
 
 
@@ -486,7 +486,7 @@ export const print_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 330
+  "colour": 180
 }
 
 // --------------------------------
