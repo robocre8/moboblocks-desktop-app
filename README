@@ -2,6 +2,11 @@
 - Texabot Desktop Apllication (Electron JS)
 - createblocks [here](https://raspberrypifoundation.github.io/blockly-samples/examples/developer-tools/index.html)
 
+# client setup
+cd client
+<br>
+npm install
+
 
 # server setup
 cd server/
