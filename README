@@ -26,3 +26,9 @@ npx electron-forge import
 # app install
 cd client
 npm run make
+
+
+# server build
+cd server
+<br>
+pyinstaller --noconfirm --onefile --console --name "texa_server" --add-data "texabot_client.py:." main.py

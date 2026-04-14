@@ -15,24 +15,24 @@ const __dirname = path.dirname(__filename);
 let pyBackend; // Variable to hold the server process
 function startBackend() {
 
-  // We need to point to the server directory
-  // '../server' moves up from 'client' into the root, then into 'server'
-  const serverPath = path.join(__dirname, '..', 'server');
+  // // We need to point to the server directory
+  // // '../server' moves up from 'client' into the root, then into 'server'
+  // const serverPath = path.join(__dirname, '..', 'server');
 
-  // Define the path to the virtual env's python
-  // On Windows it's .venv/Scripts/python.exe, on Linux/Mac it's .venv/bin/python
-  const venvPath = process.platform === 'win32' 
-    ? path.join(serverPath, '.env', 'Scripts', 'python.exe') 
-    : path.join(serverPath, '.env', 'bin', 'python');
+  // // Define the path to the virtual env's python
+  // // On Windows it's .venv/Scripts/python.exe, on Linux/Mac it's .venv/bin/python
+  // const venvPath = process.platform === 'win32' 
+  //   ? path.join(serverPath, '.env', 'Scripts', 'python.exe') 
+  //   : path.join(serverPath, '.env', 'bin', 'python');
 
-  pyBackend = spawn(venvPath, [
-    '-m', 'uvicorn', 
-    'main:app', 
-    '--host', 'localhost', 
-    '--port', '8000'
-  ], {
-    cwd: serverPath // This tells the terminal to run the command INSIDE the server folder
-  });
+  // pyBackend = spawn(venvPath, [
+  //   '-m', 'uvicorn', 
+  //   'main:app', 
+  //   '--host', 'localhost', 
+  //   '--port', '8000'
+  // ], {
+  //   cwd: serverPath // This tells the terminal to run the command INSIDE the server folder
+  // });
 
 
   
@@ -56,23 +56,23 @@ function startBackend() {
 
 
 
-  // let serverPath;
+  let serverPath;
 
-  // if (app.isPackaged) {
-  //   // Path when the app is built/installed
-  //   serverPath = path.join(process.resourcesPath, 'texa_server');
-  // } else {
-  //   // Path during development
-  //   serverPath = path.join(__dirname, 'resources', 'texa_server');
-  // }
+  if (app.isPackaged) {
+    // Path when the app is built/installed
+    serverPath = path.join(process.resourcesPath, 'texa_server');
+  } else {
+    // Path during development
+    serverPath = path.join(__dirname, 'resources', 'texa_server');
+  }
 
-  // // Add .exe for Windows users
-  // const cmd = process.platform === 'win32' ? `${serverPath}.exe` : serverPath;
+  // Add .exe for Windows users
+  const cmd = process.platform === 'win32' ? `${serverPath}.exe` : serverPath;
 
-  // pyBackend = spawn(cmd, ['--port', '8000'], {
-  //   // Ensure the server runs in its own directory to find internal files
-  //   cwd: path.dirname(cmd) 
-  // });
+  pyBackend = spawn(cmd, ['--port', '8000'], {
+    // Ensure the server runs in its own directory to find internal files
+    cwd: path.dirname(cmd) 
+  });
 
 
 
@@ -117,8 +117,14 @@ app.whenReady().then(() => {
 
 // CRITICAL: Kill the Python server when the Electron app closes
 app.on('will-quit', () => {
+  // if (pyBackend) {
+  //   pyBackend.kill();
+  // }
   if (pyBackend) {
-    pyBackend.kill();
+    // This sends a 'KILL' signal to the server and all its sub-processes
+    process.platform === 'win32' 
+      ? require('child_process').exec(`taskkill /pid ${pyBackend.pid} /T /F`)
+      : pyBackend.kill('SIGKILL');
   }
 });
 
