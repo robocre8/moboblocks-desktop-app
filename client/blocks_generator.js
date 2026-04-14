@@ -9,7 +9,7 @@ pythonGenerator.forBlock['robot_control_block'] = function(block, generator) {
   const linear_speed = block.getFieldValue('LINEAR') || '0';
   const angular_speed = block.getFieldValue('ANGULAR') || '0';
   
-  return `robot.writeRobotVel("${linear_speed}", ${angular_speed})\n`;
+  return `robot.writeRobotVel(${linear_speed}, ${angular_speed})\n`;
 };
 
 pythonGenerator.forBlock['servo_angle_block'] = function(block, generator) {

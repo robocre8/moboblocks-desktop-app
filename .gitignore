@@ -3,3 +3,7 @@ server/__pycache__*
 server/.env*
 server/robot_program*
 client/node_modules*
+server/*build
+server/*dist
+server/*.spec
+client/out*

@@ -14,7 +14,8 @@ const __dirname = path.dirname(__filename);
 
 let pyBackend; // Variable to hold the server process
 function startBackend() {
- // We need to point to the server directory
+
+  // We need to point to the server directory
   // '../server' moves up from 'client' into the root, then into 'server'
   const serverPath = path.join(__dirname, '..', 'server');
 
@@ -33,6 +34,50 @@ function startBackend() {
     cwd: serverPath // This tells the terminal to run the command INSIDE the server folder
   });
 
+
+  
+
+
+  // // We need to point to the server directory
+  // const serverPath = path.join(__dirname, 'resources');
+  
+  // const serverExe = process.platform === 'win32' 
+  //   ? path.join(serverPath, 'texa_server.exe') 
+  //   : path.join(serverPath, 'texa_server');
+
+  // pyBackend = spawn(serverExe, [
+  //   '--host', 'localhost', 
+  //   '--port', '8000'
+  // ], {
+  //   cwd: serverPath 
+  // });
+
+
+
+
+
+  // let serverPath;
+
+  // if (app.isPackaged) {
+  //   // Path when the app is built/installed
+  //   serverPath = path.join(process.resourcesPath, 'texa_server');
+  // } else {
+  //   // Path during development
+  //   serverPath = path.join(__dirname, 'resources', 'texa_server');
+  // }
+
+  // // Add .exe for Windows users
+  // const cmd = process.platform === 'win32' ? `${serverPath}.exe` : serverPath;
+
+  // pyBackend = spawn(cmd, ['--port', '8000'], {
+  //   // Ensure the server runs in its own directory to find internal files
+  //   cwd: path.dirname(cmd) 
+  // });
+
+
+
+
+
   pyBackend.stdout.on('data', (data) => {
     console.log(`Python Output: ${data}`);
   });
@@ -44,8 +89,8 @@ function startBackend() {
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1500,
-    height: 1000,
+    width: 1400,
+    height: 900,
     title: "TexaBlocks Desktop",
     webPreferences: {
       nodeIntegration: true,
@@ -66,7 +111,7 @@ app.whenReady().then(() => {
     createWindow();
   } catch (error) {
     // This catches if the Python server fails to even START
-    console.error("Failed to launch Mobo Blocks Backend:", error);
+    console.error("Failed to launch TexaBot Backend:", error);
   }
 });
 

@@ -20,7 +20,7 @@ h2 {
 #blocklyArea {
   width: 90%;
   max-width: 1200px;
-  height: 700px;
+  height: 600px;
   background: white;
   padding: 10px;
   border-radius: 12px;
@@ -62,6 +62,12 @@ button {
 .send-btn {
   background-color: #4a90e2;
   box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .send-btn:hover {
@@ -69,10 +75,30 @@ button {
   box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
 }
 
+.stop-btn {
+  background-color: #d0021b; /* High-contrast red */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.stop-btn:hover {
+  background-color: #a00014;
+}
+
 /* Specific style for Clear button */
 .clear-btn {
   background-color: #f44336; /* Red */
   box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .clear-btn:hover {
@@ -84,6 +110,12 @@ button {
 .save-btn {
   background-color: #36c63f; /* Green */
   box-shadow: 0 4px 15px rgba(45, 208, 50, 0.3);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .save-btn:hover {
@@ -96,6 +128,12 @@ button {
 .open-btn {
   background-color: #b037d5;
   box-shadow: 0 4px 15px rgba(203, 54, 244, 0.3);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .open-btn:hover {

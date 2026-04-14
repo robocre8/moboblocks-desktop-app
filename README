@@ -16,3 +16,13 @@ python3 -m venv .env
 source .env/bin/activate
 <br>
 pip3 install -r requirements.txt 
+
+
+# pre app install
+npm install --save-dev @electron-forge/cli
+npx electron-forge import
+
+
+# app install
+cd client
+npm run make

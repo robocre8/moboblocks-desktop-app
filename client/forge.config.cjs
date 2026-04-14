@@ -1,0 +1,51 @@
+const { FusesPlugin } = require('@electron-forge/plugin-fuses');
+const { FuseV1Options, FuseVersion } = require('@electron/fuses');
+
+module.exports = {
+  packagerConfig: {
+    asar: true,
+    // This ensures the resources folder is included in the build
+    extraResource: [
+      './resources/texa_server',
+      './resources/texabot_client.py' 
+    ],
+  },
+  rebuildConfig: {},
+  makers: [
+    {
+      name: '@electron-forge/maker-squirrel', // Windows
+      config: {
+        name: 'texablocks'
+      }
+    },
+    {
+      name: '@electron-forge/maker-zip', // Portable (Works everywhere)
+      platforms: ['linux', 'win32']
+    },
+    {
+      name: '@electron-forge/maker-deb', // Debian/Ubuntu
+      config: {}
+    },
+    // {
+    //   name: '@electron-forge/maker-rpm',
+    //   config: {},
+    // },
+  ],
+  plugins: [
+    {
+      name: '@electron-forge/plugin-auto-unpack-natives',
+      config: {},
+    },
+    // Fuses are used to enable/disable various Electron functionality
+    // at package time, before code signing the application
+    new FusesPlugin({
+      version: FuseVersion.V1,
+      [FuseV1Options.RunAsNode]: false,
+      [FuseV1Options.EnableCookieEncryption]: true,
+      [FuseV1Options.EnableNodeOptionsEnvironmentVariable]: false,
+      [FuseV1Options.EnableNodeCliInspectArguments]: false,
+      [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true,
+      [FuseV1Options.OnlyLoadAppFromAsar]: true,
+    }),
+  ],
+};
