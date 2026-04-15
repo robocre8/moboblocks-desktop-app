@@ -183,9 +183,9 @@ function clearBlocks() {
 
 async function saveBlocks() {
   const { filePath } = await dialog.showSaveDialog({
-    title: 'Save TexaBlocks Project',
-    defaultPath: 'my_robot_program.json',
-    filters: [{ name: 'TexaBlocks Files', extensions: ['json', 'texa'] }]
+    title: 'Save MoboBlocks Project',
+    defaultPath: 'test_program.json',
+    filters: [{ name: 'MoboBlocks Files', extensions: ['json'] }]
   });
 
   if (filePath) {
@@ -199,7 +199,7 @@ async function saveBlocks() {
 async function openBlocks() {
   const { filePaths } = await dialog.showOpenDialog({
     properties: ['openFile'],
-    filters: [{ name: 'TexaBlocks Files', extensions: ['json', 'texa'] }]
+    filters: [{ name: 'MoboBlocks Files', extensions: ['json'] }]
   });
 
   if (filePaths && filePaths.length > 0) {

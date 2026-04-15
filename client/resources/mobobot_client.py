@@ -7,7 +7,7 @@ import threading
 
 
 
-class TexaBotClient:
+class MoboBotClient:
 
     def __init__(self):
         self.START_BYTE = 0xAA
@@ -68,12 +68,12 @@ class TexaBotClient:
         for _ in range(10):
             success = self.clearControllerData()
             if success:
-                print("TexaBot Connected Successfully")
+                print("MoboBot Connected Successfully")
                 return
             sleep(0.1)
 
         self.disconnect()
-        raise RuntimeError("Could not connect to TexaBot, Try Again")
+        raise RuntimeError("Could not connect to MoboBot, Try Again")
 
 
     def disconnect(self):
@@ -297,7 +297,7 @@ class TexaBotClient:
 
 
 
-# class TexaBotCamClient:
+# class MoboBotCamClient:
 #     def __init__(self):
 #         self.cap = None
 
@@ -313,7 +313,7 @@ class TexaBotClient:
 #         if not ret:
 #             return
 
-#         cv2.imshow("TEXABOT-CAM", frame)
+#         cv2.imshow("MOBOBOT-CAM", frame)
 
 #         if cv2.waitKey(1) == 27:
 #             return

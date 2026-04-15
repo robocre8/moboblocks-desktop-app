@@ -44,8 +44,8 @@ function startBackend() {
   // const serverPath = path.join(__dirname, 'resources');
   
   // const serverExe = process.platform === 'win32' 
-  //   ? path.join(serverPath, 'texa_server.exe') 
-  //   : path.join(serverPath, 'texa_server');
+  //   ? path.join(serverPath, 'mobobot_server.exe') 
+  //   : path.join(serverPath, 'mobobot_server');
 
   // pyBackend = spawn(serverExe, {
   //   cwd: serverPath,
@@ -61,10 +61,10 @@ function startBackend() {
 
   if (app.isPackaged) {
     // Path when the app is built/installed
-    serverPath = path.join(process.resourcesPath, 'texa_server');
+    serverPath = path.join(process.resourcesPath, 'mobobot_server');
   } else {
     // Path during development
-    serverPath = path.join(__dirname, 'resources', 'texa_server');
+    serverPath = path.join(__dirname, 'resources', 'mobobot_server');
   }
 
   // Add .exe for Windows users
@@ -94,7 +94,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1400,
     height: 900,
-    title: "TexaBlocks Desktop",
+    title: "MoboBlocks Desktop",
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -114,7 +114,7 @@ app.whenReady().then(() => {
     createWindow();
   } catch (error) {
     // This catches if the Python server fails to even START
-    console.error("Failed to launch TexaBot Backend:", error);
+    console.error("Failed to launch MoboBlocks Backend:", error);
   }
 });
 
@@ -146,21 +146,3 @@ app.on('window-all-closed', () => {
 app.on('will-quit', () => {
   killBackend();
 });
-
-
-// // CRITICAL: Kill the Python server when the Electron app closes
-// app.on('will-quit', () => {
-//   // if (pyBackend) {
-//   //   pyBackend.kill();
-//   // }
-//   if (pyBackend) {
-//     // This sends a 'KILL' signal to the server and all its sub-processes
-//     process.platform === 'win32' 
-//       ? require('child_process').exec(`taskkill /pid ${pyBackend.pid} /T /F`)
-//       : pyBackend.kill('SIGKILL');
-//   }
-// });
-
-// app.on('window-all-closed', () => {
-//   if (process.platform !== 'darwin') app.quit();
-// });

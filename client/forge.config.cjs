@@ -6,9 +6,9 @@ module.exports = {
     asar: true,
     // This ensures the resources folder is included in the build
     extraResource: [
-      './resources/texa_server',
-      './resources/texa_server.exe',
-      './resources/texabot_client.py'
+      // './resources/mobobot_server',
+      './resources/mobobot_server.exe',
+      './resources/mobobot_client.py'
     ],
   },
   rebuildConfig: {},
@@ -16,7 +16,7 @@ module.exports = {
     // {
     //   name: '@electron-forge/maker-squirrel', // Windows
     //   config: {
-    //     name: 'texablocks'
+    //     name: 'MoboBlocks'
     //   }
     // },
     {

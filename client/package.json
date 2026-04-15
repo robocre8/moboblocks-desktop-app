@@ -1,7 +1,7 @@
 {
-  "name": "texablocks-desktop-app",
+  "name": "moboblocks-desktop-app",
   "version": "1.0.0",
-  "description": "- testing the Texablocks Desktop Application",
+  "description": "- testing the MoboBlocks Desktop Application",
   "main": "main.js",
   "type": "module",
   "author": "robocre8",

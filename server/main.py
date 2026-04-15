@@ -16,7 +16,7 @@ current_robot_process = None
 WRITABLE_DIR = tempfile.gettempdir()
 ROBOT_FILE_PATH = os.path.join(WRITABLE_DIR, "robot_program.py")
 
-# This finds where your texa_server executable is actually sitting
+# This finds where your mobobot_server executable is actually sitting
 if getattr(sys, 'frozen', False):
     # If running as a bundled EXE
     BUNDLE_DIR = os.path.dirname(sys.executable)
@@ -24,8 +24,8 @@ else:
     # If running in normal python mode
     BUNDLE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-CLIENT_LIB_SOURCE = os.path.join(BUNDLE_DIR, "texabot_client.py")
-CLIENT_LIB_DEST = os.path.join(WRITABLE_DIR, "texabot_client.py")
+CLIENT_LIB_SOURCE = os.path.join(BUNDLE_DIR, "mobobot_client.py")
+CLIENT_LIB_DEST = os.path.join(WRITABLE_DIR, "mobobot_client.py")
 
 
 app = FastAPI()
@@ -73,17 +73,6 @@ def stop_existing_process():
     except Exception as e:
         print(f"System cleanup error: {e}")
 
-# def stop_existing_process():
-#     global current_robot_process
-#     if current_robot_process and current_robot_process.poll() is None:
-#         print(f"--- KILLING OLD PROCESS (PID: {current_robot_process.pid}) ---")
-#         # .terminate() is gentler; .kill() is immediate
-#         current_robot_process.terminate()
-#         try:
-#             current_robot_process.wait(timeout=2)
-#         except:
-#             current_robot_process.kill()
-
 
 
 @app.post("/stop")
@@ -110,13 +99,13 @@ async def run_robot(payload: CodePayload):
 
     with open(ROBOT_FILE_PATH, "w") as f:
         # 1. Setup and Connection
-        f.write('from texabot_client import TexaBotClient\n')
+        f.write('from mobobot_client import MoboBotClient\n')
         f.write('import time, sys\n\n')
-        f.write('robot = TexaBotClient()\n')
+        f.write('robot = MoboBotClient()\n')
         
         # 2. Wrap the user code in a Try block
         f.write('try:\n')
-        f.write('    robot.connect("texabot.local", 8888, 0.018)\n')
+        f.write('    robot.connect("mobobot.local", 8888, 0.018)\n')
         f.write('    robot.start_heartbeat()\n')
         f.write('    time.sleep(1.0)\n')
         
@@ -137,13 +126,6 @@ async def run_robot(payload: CodePayload):
     # 2. Start the new process
 
     python_cmd = "python" if sys.platform == "win32" else "python3"
-
-    # current_robot_process = subprocess.Popen(
-    #     [python_cmd, ROBOT_FILE_PATH],
-    #     cwd=WRITABLE_DIR,
-    #     preexec_fn=os.setsid if sys.platform != "win32" else None,
-    #     creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if sys.platform == "win32" else 0
-    # )
     
     try:
         current_robot_process = subprocess.Popen(
@@ -160,8 +142,21 @@ async def run_robot(payload: CodePayload):
 
 if __name__ == "__main__":
     stop_existing_process()
-    # uvicorn.run("main:app", host="localhost", port=8000)
     uvicorn.run(app, host="127.0.0.1", port=8000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -181,25 +176,57 @@ if __name__ == "__main__":
 
 # app = FastAPI()
 
+
 # # Enable CORS so your browser's index.html can talk to this script
 # app.add_middleware(
 #     CORSMiddleware,
-#     allow_origins=["*"], 
-#     allow_methods=["*"],
+#     allow_origins=["*"], # Allows all origins (perfect for local desktop apps)
+#     allow_credentials=True,
+#     allow_methods=["*"], # Allows POST, GET, etc.
 #     allow_headers=["*"],
 # )
+
 
 # class CodePayload(BaseModel):
 #     code: str
 
+
 # def stop_existing_process():
 #     global current_robot_process
-#     if current_robot_process and current_robot_process.poll() is None:
-#         print(f"--- KILLING OLD PROCESS (PID: {current_robot_process.pid}) ---")
-#         # .terminate() is gentler; .kill() is immediate
-#         current_robot_process.kill() 
-#         current_robot_process.wait() # Wait for it to actually close
+    
+#     # 1. Kill via the Python reference
+#     if current_robot_process:
+#         try:
+#             current_robot_process.kill()
+#             current_robot_process.wait(timeout=0.5)
+#         except:
+#             pass
 #         current_robot_process = None
+
+#     # 2. SYSTEM-LEVEL CLEANUP (The "Fail-Safe")
+#     # This finds ANY process running robot_program.py and kills it
+#     try:
+#         if sys.platform == "win32":
+#             # Windows: Kill by image name if you can, or use taskkill
+#             subprocess.run(
+#                 'wmic process where "commandline like \'%robot_program.py%\'" delete', 
+#                 shell=True, 
+#                 capture_output=True
+#             )
+#         else:
+#             # Linux: Use pkill with the full command line pattern
+#             subprocess.run(["pkill", "-9", "-f", "robot_program.py"], capture_output=True)
+#     except Exception as e:
+#         print(f"System cleanup error: {e}")
+
+# # def stop_existing_process():
+# #     global current_robot_process
+# #     if current_robot_process and current_robot_process.poll() is None:
+# #         print(f"--- KILLING OLD PROCESS (PID: {current_robot_process.pid}) ---")
+# #         # .terminate() is gentler; .kill() is immediate
+# #         current_robot_process.kill() 
+# #         current_robot_process.wait() # Wait for it to actually close
+# #         current_robot_process = None
 
 
 # @app.post("/code")
@@ -213,13 +240,13 @@ if __name__ == "__main__":
 
 #     with open("robot_program.py", "w") as f:
 #         # 1. Setup and Connection
-#         f.write('from texabot_client import TexaBotClient\n')
+#         f.write('from mobobot_client import MoboBotClient\n')
 #         f.write('import time, sys\n\n')
-#         f.write('robot = TexaBotClient()\n')
+#         f.write('robot = MoboBotClient()\n')
         
 #         # 2. Wrap the user code in a Try block
 #         f.write('try:\n')
-#         f.write('    robot.connect("texabot.local", 8888, 0.018)\n')
+#         f.write('    robot.connect("mobobot.local", 8888, 0.018)\n')
 #         f.write('    robot.start_heartbeat()\n')
 #         f.write('    time.sleep(1.0)\n')
         
@@ -256,5 +283,5 @@ if __name__ == "__main__":
     
 
 # if __name__ == "__main__":
-#     # host="0.0.0.0" makes it accessible to other devices on your Wi-Fi
-#     uvicorn.run(app, host="localhost", port=8000)
+#     stop_existing_process()
+#     uvicorn.run(app, host="127.0.0.1", port=8000)

@@ -1,5 +1,5 @@
-# TexaBot Test Desktop Application
-- Texabot Desktop Apllication (Electron JS)
+# MoboBot Test Desktop Application
+- Mobobot Desktop Apllication (Electron JS)
 - createblocks [here](https://raspberrypifoundation.github.io/blockly-samples/examples/developer-tools/index.html)
 
 # client setup
@@ -34,4 +34,4 @@ npm run make
 # server build
 cd server
 <br>
-pyinstaller --noconfirm --onefile --console --name "texa_server" --add-data "texabot_client.py:." main.py
+pyinstaller --noconfirm --onefile --console --name "mobobot_server" --add-data "mobobot_client.py:." main.py
