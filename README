@@ -11,11 +11,14 @@ npm install
 # server setup
 cd server/
 <br>
-python3 -m venv .env
+python3 -m venv .env # Ubuntu
+python -m venv .env # Windows PowerShell
 <br>
-source .env/bin/activate
+source .env/bin/activate # Ubuntu
+.\.env\Scripts\Activate.ps1 # Windows PowerShell
 <br>
-pip3 install -r requirements.txt 
+pip3 install -r requirements.txt # Ubuntu
+pip install -r requirements.txt # Windows PowerShell
 
 
 # pre app install

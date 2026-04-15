@@ -136,7 +136,7 @@ async function sendBlocks(event) {
     const code = pythonGenerator.workspaceToCode(workspace);
     console.log("Generated Code:", code);
 
-    const response = await fetch("http://localhost:8000/code", {
+    const response = await fetch("http://127.0.0.1:8000/code", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ "code": code })
@@ -156,7 +156,7 @@ async function stop(event) {
   if (event) event.preventDefault();
 
   try {
-    const response = await fetch("http://localhost:8000/stop", {
+    const response = await fetch("http://127.0.0.1:8000/stop", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ "code": "cool" })

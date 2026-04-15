@@ -62,7 +62,11 @@ def stop_existing_process():
     try:
         if sys.platform == "win32":
             # Windows: Kill by image name if you can, or use taskkill
-            subprocess.run(["taskkill", "/F", "/IM", "python.exe", "/FI", f"WINDOWTITLE eq *robot_program.py*"], capture_output=True)
+            subprocess.run(
+                'wmic process where "commandline like \'%robot_program.py%\'" delete', 
+                shell=True, 
+                capture_output=True
+            )
         else:
             # Linux: Use pkill with the full command line pattern
             subprocess.run(["pkill", "-9", "-f", "robot_program.py"], capture_output=True)
@@ -155,8 +159,9 @@ async def run_robot(payload: CodePayload):
 
 
 if __name__ == "__main__":
+    stop_existing_process()
     # uvicorn.run("main:app", host="localhost", port=8000)
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
 
 
 

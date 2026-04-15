@@ -1,7 +1,7 @@
 import {app, BrowserWindow} from "electron";
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { spawn } from 'node:child_process';
+import { spawn, exec, execSync } from 'node:child_process';
 
 import * as remoteMain from '@electron/remote/main/index.js';
 remoteMain.initialize();
@@ -28,10 +28,12 @@ function startBackend() {
   // pyBackend = spawn(venvPath, [
   //   '-m', 'uvicorn', 
   //   'main:app', 
-  //   '--host', 'localhost', 
+  //   '--host', '127.0.0.1', 
   //   '--port', '8000'
   // ], {
-  //   cwd: serverPath // This tells the terminal to run the command INSIDE the server folder
+  //   cwd: serverPath, // This tells the terminal to run the command INSIDE the server folder
+  //   shell: false,
+  //   detached: false
   // });
 
 
@@ -45,11 +47,10 @@ function startBackend() {
   //   ? path.join(serverPath, 'texa_server.exe') 
   //   : path.join(serverPath, 'texa_server');
 
-  // pyBackend = spawn(serverExe, [
-  //   '--host', 'localhost', 
-  //   '--port', '8000'
-  // ], {
-  //   cwd: serverPath 
+  // pyBackend = spawn(serverExe, {
+  //   cwd: serverPath,
+  //   shell: false,
+  //   detached: false
   // });
 
 
@@ -71,7 +72,9 @@ function startBackend() {
 
   pyBackend = spawn(cmd, ['--port', '8000'], {
     // Ensure the server runs in its own directory to find internal files
-    cwd: path.dirname(cmd) 
+    cwd: path.dirname(cmd),
+    shell: false,
+    detached: false
   });
 
 
@@ -115,19 +118,49 @@ app.whenReady().then(() => {
   }
 });
 
-// CRITICAL: Kill the Python server when the Electron app closes
-app.on('will-quit', () => {
-  // if (pyBackend) {
-  //   pyBackend.kill();
-  // }
+
+function killBackend() {
   if (pyBackend) {
-    // This sends a 'KILL' signal to the server and all its sub-processes
-    process.platform === 'win32' 
-      ? require('child_process').exec(`taskkill /pid ${pyBackend.pid} /T /F`)
-      : pyBackend.kill('SIGKILL');
+    console.log("Terminating backend process...");
+    if (process.platform === 'win32') {
+      // Force kill the process tree (/T) and force (/F)
+      exec(`taskkill /pid ${pyBackend.pid} /T /F`, (err) => {
+        if (err) console.error("Taskkill failed:", err);
+      });
+    } else {
+      pyBackend.kill('SIGKILL');
+    }
+    pyBackend = null;
+  }
+}
+
+// Triggered when all windows are closed
+app.on('window-all-closed', () => {
+  killBackend();
+  if (process.platform !== 'darwin') {
+    app.quit();
   }
 });
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+// Triggered just before the app exits
+app.on('will-quit', () => {
+  killBackend();
 });
+
+
+// // CRITICAL: Kill the Python server when the Electron app closes
+// app.on('will-quit', () => {
+//   // if (pyBackend) {
+//   //   pyBackend.kill();
+//   // }
+//   if (pyBackend) {
+//     // This sends a 'KILL' signal to the server and all its sub-processes
+//     process.platform === 'win32' 
+//       ? require('child_process').exec(`taskkill /pid ${pyBackend.pid} /T /F`)
+//       : pyBackend.kill('SIGKILL');
+//   }
+// });
+
+// app.on('window-all-closed', () => {
+//   if (process.platform !== 'darwin') app.quit();
+// });

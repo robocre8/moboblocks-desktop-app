@@ -7,25 +7,26 @@ module.exports = {
     // This ensures the resources folder is included in the build
     extraResource: [
       './resources/texa_server',
-      './resources/texabot_client.py' 
+      './resources/texa_server.exe',
+      './resources/texabot_client.py'
     ],
   },
   rebuildConfig: {},
   makers: [
-    {
-      name: '@electron-forge/maker-squirrel', // Windows
-      config: {
-        name: 'texablocks'
-      }
-    },
+    // {
+    //   name: '@electron-forge/maker-squirrel', // Windows
+    //   config: {
+    //     name: 'texablocks'
+    //   }
+    // },
     {
       name: '@electron-forge/maker-zip', // Portable (Works everywhere)
       platforms: ['linux', 'win32']
     },
-    {
-      name: '@electron-forge/maker-deb', // Debian/Ubuntu
-      config: {}
-    },
+    // {
+    //   name: '@electron-forge/maker-deb', // Debian/Ubuntu
+    //   config: {}
+    // },
     // {
     //   name: '@electron-forge/maker-rpm',
     //   config: {},
