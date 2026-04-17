@@ -7,18 +7,17 @@ module.exports = {
     // This ensures the resources folder is included in the build
     extraResource: [
       './resources/mobobot_server',
-      // './resources/mobobot_server.exe',
-      // './resources/mobobot_client.py'
+      './resources/mobobot_server.exe',
     ],
   },
   rebuildConfig: {},
   makers: [
-    // {
-    //   name: '@electron-forge/maker-squirrel', // Windows
-    //   config: {
-    //     name: 'MoboBlocks'
-    //   }
-    // },
+    {
+      name: '@electron-forge/maker-squirrel', // Windows
+      config: {
+        name: 'MoboBlocks'
+      }
+    },
     // {
     //   name: '@electron-forge/maker-zip', // Portable (Works everywhere)
     //   platforms: ['linux', 'win32']

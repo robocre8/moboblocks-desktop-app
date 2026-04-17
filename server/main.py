@@ -101,8 +101,10 @@ async def run_robot(payload: CodePayload):
         f.write('import sys, os\n')
     
         # If the server is a frozen EXE, tell the script to look inside the EXE's internal folder
+        # for Windows & Linux
         if getattr(sys, 'frozen', False):
-            f.write(f'sys.path.append("{sys._MEIPASS}")\n')
+            path_to_add = repr(sys._MEIPASS)
+            f.write(f'sys.path.append({path_to_add})\n')
 
         # 1. Setup and Connection
         f.write('from mobobot_client import MoboBotClient\n')
