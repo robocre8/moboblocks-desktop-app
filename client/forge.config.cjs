@@ -6,9 +6,9 @@ module.exports = {
     asar: true,
     // This ensures the resources folder is included in the build
     extraResource: [
-      // './resources/mobobot_server',
-      './resources/mobobot_server.exe',
-      './resources/mobobot_client.py'
+      './resources/mobobot_server',
+      // './resources/mobobot_server.exe',
+      // './resources/mobobot_client.py'
     ],
   },
   rebuildConfig: {},
@@ -19,14 +19,14 @@ module.exports = {
     //     name: 'MoboBlocks'
     //   }
     // },
-    {
-      name: '@electron-forge/maker-zip', // Portable (Works everywhere)
-      platforms: ['linux', 'win32']
-    },
     // {
-    //   name: '@electron-forge/maker-deb', // Debian/Ubuntu
-    //   config: {}
+    //   name: '@electron-forge/maker-zip', // Portable (Works everywhere)
+    //   platforms: ['linux', 'win32']
     // },
+    {
+      name: '@electron-forge/maker-deb', // Debian/Ubuntu
+      config: {}
+    },
     // {
     //   name: '@electron-forge/maker-rpm',
     //   config: {},

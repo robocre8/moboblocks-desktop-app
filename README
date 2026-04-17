@@ -34,4 +34,11 @@ npm run make
 # server build
 cd server
 <br>
+> USE THIS: (make use of the mobobot-client python lib v0.0.1)
+
+pyinstaller --noconfirm --onefile --console --name "mobobot_server" --collect-all mobobot-client main.py
+<br>
+<br>
+> NOT THIS
+
 pyinstaller --noconfirm --onefile --console --name "mobobot_server" --add-data "mobobot_client.py:." main.py
