@@ -136,7 +136,7 @@ async function sendBlocks(event) {
     const code = pythonGenerator.workspaceToCode(workspace);
     console.log("Generated Code:", code);
 
-    const response = await fetch("http://localhost:8000/code", {
+    const response = await fetch("http://127.0.0.1:8000/code", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ "code": code })
@@ -144,7 +144,7 @@ async function sendBlocks(event) {
 
     if (response.ok) {
       console.log("Code Sent Successfully");
-      alert("Code Sent Successfully");
+      alert("CODE SENT SUCCESSFULLY");
     }
   } catch (error) {
     console.error("Detailed Error:", error);
@@ -152,18 +152,40 @@ async function sendBlocks(event) {
 }
 
 
-function clearBlocks() {
-    if (confirm("Are you sure you want to clear all blocks?")) {
-        workspace.clear();
-        console.log("Cleared");
+async function stop(event) {
+  if (event) event.preventDefault();
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/stop", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ "code": "cool" })
+    });
+
+    if (response.ok) {
+      const result = await response.json();
+      console.log("Robot Stop Signal:", result.status);
+      alert("STOP COMMAND SENT");
     }
+    
+  } catch (error) {
+    console.error("Failed to stop robot:", error);
+  }
+}
+
+
+function clearBlocks() {
+  if (confirm("Are you sure you want to clear all blocks?")) {
+    workspace.clear();
+    console.log("Cleared");
+  }
 }
 
 async function saveBlocks() {
   const { filePath } = await dialog.showSaveDialog({
-    title: 'Save TexaBlocks Project',
-    defaultPath: 'my_robot_program.json',
-    filters: [{ name: 'TexaBlocks Files', extensions: ['json', 'texa'] }]
+    title: 'Save MoboBlocks Project',
+    defaultPath: 'test_program.json',
+    filters: [{ name: 'MoboBlocks Files', extensions: ['json'] }]
   });
 
   if (filePath) {
@@ -177,7 +199,7 @@ async function saveBlocks() {
 async function openBlocks() {
   const { filePaths } = await dialog.showOpenDialog({
     properties: ['openFile'],
-    filters: [{ name: 'TexaBlocks Files', extensions: ['json', 'texa'] }]
+    filters: [{ name: 'MoboBlocks Files', extensions: ['json'] }]
   });
 
   if (filePaths && filePaths.length > 0) {
@@ -194,6 +216,7 @@ async function openBlocks() {
 
 document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('send-btn-id');
+    const stopBtn = document.getElementById('stop-btn-id');
     const clearBtn = document.getElementById('clear-btn-id');
     const saveBtn = document.getElementById('save-btn-id');
     const openBtn = document.getElementById('open-btn-id');
@@ -201,6 +224,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sendBtn) {
         sendBtn.addEventListener('click', (event) => {
             sendBlocks(event);
+        });
+    }
+
+    if (stopBtn) {
+        stopBtn.addEventListener('click', (event) => {
+            stop(event);
         });
     }
 
