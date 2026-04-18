@@ -3,9 +3,11 @@ import struct
 from time import sleep, time
 from math import pi
 import threading
+# import cv2
 
 
-class TexaBotClient:
+
+class MoboBotClient:
 
     def __init__(self):
         self.START_BYTE = 0xAA
@@ -66,12 +68,12 @@ class TexaBotClient:
         for _ in range(10):
             success = self.clearControllerData()
             if success:
-                print("TexaBot Connected Successfully")
+                print("MoboBot Connected Successfully")
                 return
             sleep(0.1)
 
         self.disconnect()
-        raise RuntimeError("Could not connect to TexaBot, Try Again")
+        raise RuntimeError("Could not connect to MoboBot, Try Again")
 
 
     def disconnect(self):
@@ -289,3 +291,33 @@ class TexaBotClient:
             self.writeMotorPwm(0, 0)
         else:
             self.writeMotorVel(0.0, 0.0)
+
+
+
+
+
+
+# class MoboBotCamClient:
+#     def __init__(self):
+#         self.cap = None
+
+#     def startCapture(self, ip: str):
+#         self.cap = cv2.VideoCapture(f'http://{ip}:81/stream')
+#         self.cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
+
+#     # ------------------ CONNECT ------------------
+#     def streamImg(self):
+
+#         ret, frame = self.cap.read()
+
+#         if not ret:
+#             return
+
+#         cv2.imshow("MOBOBOT-CAM", frame)
+
+#         if cv2.waitKey(1) == 27:
+#             return
+
+#     def stopStreamImg(self):
+#         self.cap.release()
+#         cv2.destroyAllWindows()

@@ -19,7 +19,7 @@ h2 {
 /* The wrapper for Blockly to give it a nice shadow and border */
 #blocklyArea {
   width: 90%;
-  max-width: 900px;
+  max-width: 1200px;
   height: 600px;
   background: white;
   padding: 10px;
@@ -62,15 +62,81 @@ button {
 .send-btn {
   background-color: #4a90e2;
   box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.send-btn:hover {
+  background-color: #8fb8e6;
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+.stop-btn {
+  background-color: #d0021b; /* High-contrast red */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.stop-btn:hover {
+  background-color: #a00014;
 }
 
 /* Specific style for Clear button */
 .clear-btn {
   background-color: #f44336; /* Red */
   box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .clear-btn:hover {
-  background-color: #d32f2f;
+  background-color: #ec8780;
   box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
+}
+
+/* Specific style for Save button */
+.save-btn {
+  background-color: #36c63f; /* Green */
+  box-shadow: 0 4px 15px rgba(45, 208, 50, 0.3);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #76c57b;
+  box-shadow: 0 4px 15px rgba(45, 208, 50, 0.3);
+}
+
+
+/* Specific style for Open button */
+.open-btn {
+  background-color: #b037d5;
+  box-shadow: 0 4px 15px rgba(203, 54, 244, 0.3);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.open-btn:hover {
+  background-color: #c18dd1;
+  box-shadow: 0 4px 15px rgba(203, 54, 244, 0.3);
 }

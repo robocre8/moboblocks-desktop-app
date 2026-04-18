@@ -1,11 +1,11 @@
 {
-  "name": "mobo-blockly-desktop-app",
+  "name": "moboblocks-desktop-app",
   "version": "1.0.0",
-  "description": "- testing the new MoboBlocks Web Application - createblocks [here](https://raspberrypifoundation.github.io/blockly-samples/examples/developer-tools/index.html)",
+  "description": "- testing the new MoboBlocks Web Application",
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --ext js,css,html --exec electron .",
+    "dev": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,6 +13,6 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^41.0.3",
-    "nodemon": "^3.1.14"
+    "@electron/remote": "^2.1.3"
   }
 }
