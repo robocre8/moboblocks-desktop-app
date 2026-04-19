@@ -88,27 +88,63 @@ import { pythonGenerator } from './blocks_generator.js';
 //        BLOCKS WORKSPACE
 //---------------------------------------------------------
 
+const MoboTheme = Blockly.Theme.defineTheme('mobo_theme', {
+    'base': Blockly.Themes.Classic,
+    'blockStyles': {
+        'motion_blocks':   { 'colourPrimary': '#8cc9fc' },
+        'sensor_blocks':   { 'colourPrimary': '#80d4cc' },
+        'output_blocks':   { 'colourPrimary': '#fea8a8' },
+        'logic_blocks':    { 'colourPrimary': '#D1C4E9' },
+        'loop_blocks':  { 'colourPrimary': '#C8E6C9' },
+        'utility_blocks':  { 'colourPrimary': '#fdd353' }
+    },
+    'categoryStyles': {
+        'motion_category':   { 'colour': '#8cc9fc' },
+        'sensor_category':   { 'colour': '#80d4cc' },
+        'output_category':   { 'colour': '#fea8a8' },
+        'logic_category':    { 'colour': '#D1C4E9' },
+        'loop_category':  { 'colour': '#C8E6C9' },
+        'utility_category':  { 'colour': '#fdd353' }
+    },
+    'componentStyles': {
+        'workspaceBackgroundColour': '#F9F9F9', // Light grey background like Scratch
+        'toolboxBackgroundColour': '#FFFFFF',
+        'toolboxTextColour': '#575E75',
+        'flyoutBackgroundColour': '#F9F9F9',
+        'scrollbarColour': '#CCCCCC',
+        'insertionMarkerColour': '#000000',
+        'insertionMarkerOpacity': 0.1,
+        'fieldTextColor': '#333333',
+        'dropdownPlaceholderColour': '#333333'
+    }
+});
+
 const workspace = Blockly.inject('blocklyDiv', { 
     toolbox: blocksToolbox,
-    theme: Blockly.Themes.Modern,
     trashcan: true,           // Shows the trashcan in the corner
     
     // --- ADD SCROLLING HERE ---
+    renderer: 'zelos', // 'zelos' is the renderer that emulates Scratch
+    theme: MoboTheme, // Provides brighter, Scratch-like colors
+    
     move: {
-        scrollbars: {
-            vertical: true,
-            horizontal: true
-        },
-        drag: true,           // Allows clicking and dragging the background to pan
-        wheel: true           // Allows using the mouse wheel to scroll/zoom
+        scrollbars: true,
+        drag: true,
+        wheel: true
+    },
+    grid: {
+      spacing: 25,         // Comfortable distance between dots/lines
+      length: 3,           // Makes them subtle dots instead of long lines
+      colour: '#ccc',      // Light grey
+      snap: true           // Helps keep blocks organized and aligned
     },
     zoom: {
-        controls: true,       // Shows +/- zoom buttons
-        wheel: true,          // Zoom with mouse wheel
-        startScale: 1.0,
-        maxScale: 3,
-        minScale: 0.3,
-        scaleSpeed: 1.2
+      controls: true,      // Essential for "infinite" feel
+      wheel: true,         // Allows fast navigation
+      startScale: 0.75,
+      maxScale: 2,
+      minScale: 0.3,
+      scaleSpeed: 1.2
     }
 });
 

@@ -34,7 +34,8 @@ export const servo_angle_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 210
+  // "colour": 225,
+  "style": "motion_blocks"
 }
 
 export const motor_control_pwm_block = {
@@ -66,7 +67,8 @@ export const motor_control_pwm_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 210
+  // "colour": 225,
+  "style": "motion_blocks"
 }
 
 export const motor_control_vel_block = {
@@ -98,7 +100,8 @@ export const motor_control_vel_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 210
+  // "colour": 225,
+  "style": "motion_blocks"
 }
 
 export const robot_control_block = {
@@ -130,7 +133,8 @@ export const robot_control_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 210
+  // "colour": 225,
+  "style": "motion_blocks"
 }
 
 export const stop_block = {
@@ -146,7 +150,8 @@ export const stop_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 0
+  // "colour": 225,
+  "style": "motion_blocks"
 }
 
 
@@ -174,7 +179,8 @@ export const if_else_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 45
+  // "colour": 225,
+  "style": "logic_blocks"
 }
 
 export const compare_block = {
@@ -229,7 +235,8 @@ export const compare_block = {
     }
   ],
   "output": null,
-  "colour": 45
+  // "colour": 225,
+  "style": "logic_blocks"
 }
 
 export const integer_block = {
@@ -252,7 +259,8 @@ export const integer_block = {
     }
   ],
   "output": "Number",
-  "colour": 45
+  // "colour": 225,
+  "style": "logic_blocks"
 }
 
 export const while_block = {
@@ -273,7 +281,8 @@ export const while_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 45
+  // "colour": 285,
+  "style": "loop_blocks"
 }
 
 export const forever_block = {
@@ -293,7 +302,8 @@ export const forever_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 45
+  // "colour": 315,
+  "style": "loop_blocks"
 }
 
 export const repeat_block = {
@@ -319,7 +329,8 @@ export const repeat_block = {
       "name": "DO"
     }
   ],
-  "colour": 45
+  // "colour": 330,
+  "style": "loop_blocks"
 }
 
 // ------------ SENSOR ----------------
@@ -336,7 +347,8 @@ export const read_sonar_block = {
     }
   ],
   "output": null,
-  "colour": 120
+  // "colour": 165,
+  "style": "sensor_blocks"
 }
 
 export const read_line_sensor_block = {
@@ -365,7 +377,8 @@ export const read_line_sensor_block = {
     }
   ],
   "output": null,
-  "colour": 120
+  // "colour": 225,
+  "style": "sensor_blocks"
 }
 
 
@@ -398,7 +411,8 @@ export const buzzer_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 290
+  // "colour": 225,
+  "style": "output_blocks"
 }
 
 export const rgb_led_block = {
@@ -438,7 +452,8 @@ export const rgb_led_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 290
+  // "colour": 225,
+  "style": "output_blocks"
 }
 
 
@@ -465,7 +480,8 @@ export const delay_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 180
+  // "colour": 180,
+  "style": "utility_blocks"
 }
 
 export const print_block = {
@@ -486,7 +502,8 @@ export const print_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 180
+  // "colour": 330,
+  "style": "utility_blocks"
 }
 
 // --------------------------------
