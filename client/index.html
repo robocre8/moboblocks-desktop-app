@@ -18,101 +18,87 @@
     
 </head>
 
-<body>
-  <h1 class="logo-text">
-  <span>M</span><span>O</span><span>B</span><span>O</span>-<span>B</span><span>L</span><span>O</span><span>C</span><span>K</span><span>S</span>
-</h1>
+  <body class="main-layout"> <h1 class="logo-text">
+      <span>M</span><span>O</span><span>B</span><span>O</span>-<span>B</span><span>L</span><span>O</span><span>C</span><span>K</span><span>S</span>
+    </h1>
 
-  <div id="blocklyArea">
-    <div id="blocklyDiv"></div>
-  </div>
-  
-  <div class="button-container">
-    <button class="send-btn" id="send-btn-id">
-       🚀 SEND
-    </button>
-
-    <button class="stop-btn" id="stop-btn-id">
-       🛑 STOP
-    </button>
+    <div id="blocklyArea">
+      <div id="blocklyDiv"></div>
+    </div>
     
-    <button class="clear-btn" id="clear-btn-id">
-       🗑️ CLEAR
-    </button>
+    <div class="button-container">
+      <button class="send-btn" id="send-btn-id">🚀 SEND</button>
+      <button class="stop-btn" id="stop-btn-id">🛑 STOP</button>
+      <button class="clear-btn" id="clear-btn-id">🗑️ CLEAR</button>
+      <button class="save-btn" id="save-btn-id">💾 SAVE</button>
+      <button class="open-btn" id="open-btn-id">📂 OPEN</button>
+    </div>
 
-    <button class="save-btn" id="save-btn-id">
-      💾 SAVE
-    </button>
+    <script>
+      // Define a custom theme for MoboBlocks
+      const MoboTheme = Blockly.Theme.defineTheme('mobo_theme', {
+          'base': Blockly.Themes.Classic,
+          'blockStyles': {
+              'motion_blocks':   { 'colourPrimary': '#8cc9fc' },
+              'sensor_blocks':   { 'colourPrimary': '#80d4cc' },
+              'output_blocks':   { 'colourPrimary': '#fea8a8' },
+              'logic_blocks':    { 'colourPrimary': '#D1C4E9' },
+              'loop_blocks':  { 'colourPrimary': '#C8E6C9' },
+              'utility_blocks':  { 'colourPrimary': '#fdd353' }
+          },
+          'categoryStyles': {
+              'motion_category':   { 'colour': '#8cc9fc' },
+              'sensor_category':   { 'colour': '#80d4cc' },
+              'output_category':   { 'colour': '#fea8a8' },
+              'logic_category':    { 'colour': '#D1C4E9' },
+              'loop_category':  { 'colour': '#C8E6C9' },
+              'utility_category':  { 'colour': '#fdd353' }
+          },
+          'componentStyles': {
+              'workspaceBackgroundColour': '#F9F9F9', // Light grey background like Scratch
+              'toolboxBackgroundColour': '#FFFFFF',
+              'toolboxTextColour': '#575E75',
+              'flyoutBackgroundColour': '#F9F9F9',
+              'scrollbarColour': '#CCCCCC',
+              'insertionMarkerColour': '#000000',
+              'insertionMarkerOpacity': 0.1,
+              'fieldTextColor': '#333333',
+              'dropdownPlaceholderColour': '#333333'
+          }
+      });
 
-    <button class="open-btn" id="open-btn-id">
-      📂 OPEN
-    </button>
-  </div>
+      const workspace = Blockly.inject('blocklyDiv', { 
+          toolbox: blocksToolbox,
+          trashcan: true,           // Shows the trashcan in the corner
+          
+          // --- ADD SCROLLING HERE ---
+          renderer: 'zelos', // 'zelos' is the renderer that emulates Scratch
+          theme: MoboTheme, // Provides brighter, Scratch-like colors
+          
+          move: {
+              scrollbars: true,
+              drag: true,
+              wheel: true
+          },
+          grid: {
+            spacing: 25,         // Comfortable distance between dots/lines
+            length: 3,           // Makes them subtle dots instead of long lines
+            colour: '#ccc',      // Light grey
+            snap: true           // Helps keep blocks organized and aligned
+          },
+          zoom: {
+            controls: true,      // Essential for "infinite" feel
+            wheel: true,         // Allows fast navigation
+            startScale: 0.75,
+            maxScale: 2,
+            minScale: 0.3,
+            scaleSpeed: 1.2
+          }
+      });
 
-  <script>
-    // --- 1. PASTE YOUR BLOCK DEFINITIONS (JSON) HERE ---
-    // --- 2. PASTE YOUR GENERATOR STUBS HERE ---
-    // --- 3. DEFINE THE TOOLBOX ---
-    // --- 4. INJECT BLOCKLY ---
-    // Define a custom theme for MoboBlocks
-    const MoboTheme = Blockly.Theme.defineTheme('mobo_theme', {
-        'base': Blockly.Themes.Classic,
-        'blockStyles': {
-            'motion_blocks':   { 'colourPrimary': '#8cc9fc' },
-            'sensor_blocks':   { 'colourPrimary': '#80d4cc' },
-            'output_blocks':   { 'colourPrimary': '#fea8a8' },
-            'logic_blocks':    { 'colourPrimary': '#D1C4E9' },
-            'loop_blocks':  { 'colourPrimary': '#C8E6C9' },
-            'utility_blocks':  { 'colourPrimary': '#fdd353' }
-        },
-        'categoryStyles': {
-            'motion_category':   { 'colour': '#8cc9fc' },
-            'sensor_category':   { 'colour': '#80d4cc' },
-            'output_category':   { 'colour': '#fea8a8' },
-            'logic_category':    { 'colour': '#D1C4E9' },
-            'loop_category':  { 'colour': '#C8E6C9' },
-            'utility_category':  { 'colour': '#fdd353' }
-        },
-        'componentStyles': {
-            'workspaceBackgroundColour': '#F9F9F9', // Light grey background like Scratch
-            'toolboxBackgroundColour': '#FFFFFF',
-            'toolboxTextColour': '#575E75',
-            'flyoutBackgroundColour': '#F9F9F9',
-            'scrollbarColour': '#CCCCCC',
-            'insertionMarkerColour': '#000000',
-            'insertionMarkerOpacity': 0.1,
-            'fieldTextColor': '#333333',
-            'dropdownPlaceholderColour': '#333333'
-        }
-    });
-
-    const workspace = Blockly.inject('blocklyDiv', { 
-        toolbox: blocksToolbox,
-        trashcan: true,           // Shows the trashcan in the corner
-        
-        // --- ADD SCROLLING HERE ---
-        renderer: 'zelos', // 'zelos' is the renderer that emulates Scratch
-        theme: MoboTheme, // Provides brighter, Scratch-like colors
-        
-        move: {
-            scrollbars: { vertical: true, horizontal: true },
-            drag: true,
-            wheel: true
-        },
-        zoom: {
-            controls: true,
-            wheel: true,
-            startScale: 0.75, // Scratch blocks are usually a bit larger
-        }
-    });
-    // --- 5. HELPER TO SEE THE RESULT ---
-    // function showCode() {
-    //   const code = pythonGenerator.workspaceToCode(workspace);
-    //   alert(code);
-    // }
-    window.addEventListener('resize', () => {
-      Blockly.svgResize(workspace);
-    });
-  </script>
-</body>
+      window.addEventListener('resize', () => {
+        Blockly.svgResize(workspace);
+      });
+    </script>
+  </body>
 </html>

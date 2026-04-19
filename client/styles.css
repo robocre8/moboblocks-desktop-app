@@ -1,38 +1,55 @@
+/* --- UPDATED LAYOUT LOGIC --- */
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f2f5;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
 }
 
-h2 {
-  color: #333;
-  margin-top: 30px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+/* 1. Center the Heading */
+.logo-text {
+    text-align: center;
+    width: 100%;
+    margin: 20px 0 10px 0; /* Adjusted spacing */
 }
 
+/* --- WORKSPACE CANVAS WITH INCREASED SIDE MARGINS --- */
 #blocklyArea {
-  width: 90%;
-  max-width: 1200px;
-  height: 600px;
-  background: white;
-  padding: 10px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-  overflow: hidden; 
+    flex: 1; 
+    position: relative;
+    
+    /* Top | Right | Bottom | Left */
+    margin: 5px 100px 5px 100px; 
+    
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.08); /* Slightly deeper shadow for the larger margin */
+    overflow: hidden;
 }
 
+/* Ensure the div inside stays perfectly locked to the new area size */
 #blocklyDiv {
-  height: 100%;
-  width: 100%;
-  border-radius: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
 }
+
+/* Tightened footer to give more room to the canvas */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px 0; /* Reduced vertical padding */
+}
+
+
 
 /* MOBO-BLOCKS */
 .logo-text {
