@@ -34,7 +34,8 @@ const servo_angle_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  // "colour": 225,
+  "style": "motion_blocks"
 }
 
 const motor_control_pwm_block = {
@@ -66,7 +67,8 @@ const motor_control_pwm_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  // "colour": 225,
+  "style": "motion_blocks"
 }
 
 const motor_control_vel_block = {
@@ -98,7 +100,8 @@ const motor_control_vel_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  // "colour": 225,
+  "style": "motion_blocks"
 }
 
 const robot_control_block = {
@@ -130,7 +133,8 @@ const robot_control_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 45
+  // "colour": 225,
+  "style": "motion_blocks"
 }
 
 const stop_block = {
@@ -146,7 +150,8 @@ const stop_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 0
+  // "colour": 225,
+  "style": "motion_blocks"
 }
 
 
@@ -174,7 +179,8 @@ const if_else_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  // "colour": 225,
+  "style": "logic_blocks"
 }
 
 const compare_block = {
@@ -229,7 +235,8 @@ const compare_block = {
     }
   ],
   "output": null,
-  "colour": 225
+  // "colour": 225,
+  "style": "logic_blocks"
 }
 
 const integer_block = {
@@ -252,7 +259,8 @@ const integer_block = {
     }
   ],
   "output": "Number",
-  "colour": 60
+  // "colour": 225,
+  "style": "logic_blocks"
 }
 
 const while_block = {
@@ -273,7 +281,8 @@ const while_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 285
+  // "colour": 285,
+  "style": "loop_blocks"
 }
 
 const forever_block = {
@@ -293,7 +302,8 @@ const forever_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 315
+  // "colour": 315,
+  "style": "loop_blocks"
 }
 
 const repeat_block = {
@@ -319,7 +329,8 @@ const repeat_block = {
       "name": "DO"
     }
   ],
-  "colour": 330
+  // "colour": 330,
+  "style": "loop_blocks"
 }
 
 // ------------ SENSOR ----------------
@@ -336,7 +347,8 @@ const read_sonar_block = {
     }
   ],
   "output": null,
-  "colour": 165
+  // "colour": 165,
+  "style": "sensor_blocks"
 }
 
 const read_line_sensor_block = {
@@ -365,7 +377,8 @@ const read_line_sensor_block = {
     }
   ],
   "output": null,
-  "colour": 225
+  // "colour": 225,
+  "style": "sensor_blocks"
 }
 
 
@@ -398,7 +411,8 @@ const buzzer_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  // "colour": 225,
+  "style": "output_blocks"
 }
 
 const rgb_led_block = {
@@ -438,7 +452,8 @@ const rgb_led_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 225
+  // "colour": 225,
+  "style": "output_blocks"
 }
 
 
@@ -465,7 +480,8 @@ const delay_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 180
+  // "colour": 180,
+  "style": "utility_blocks"
 }
 
 const print_block = {
@@ -486,7 +502,8 @@ const print_block = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 330
+  // "colour": 330,
+  "style": "utility_blocks"
 }
 
 // --------------------------------
