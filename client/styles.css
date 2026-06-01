@@ -291,3 +291,43 @@ div[role="treeitem"]:nth-child(6) .mobo-category-icon { background-color: #fdd35
 .blocklyMenuItemContent {
     color: #333333 !important;
 }
+
+
+
+#status-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* Centers the box perfectly and primes it for the scale animation */
+    transform: translate(-50%, -50%) scale(0.9); 
+    
+    /* Option 2: Sleek Dark Charcoal Style */
+    background-color: rgba(33, 33, 33, 0.95); /* Deep translucent charcoal */
+    color: #00ffcc;                           /* Vibrant Neo-Teal text */
+    border: 1px solid #444444;                /* Subtle hardware border outline */
+    
+    padding: 16px 32px; 
+    border-radius: 8px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.5px;                    /* Cleaner, industrial text spacing */
+    
+    /* Deeper shadow to give the dark card separation from the light workspace grid */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35); 
+    z-index: 10000;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* State when the toast is hidden */
+.toast-hidden {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.9); /* Drifts slightly downwards on exit */
+    pointer-events: none;
+}
+
+/* State when the toast is visible */
+.toast-visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);   /* Clean, crisp pop to full size */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);   /* Increases readability of neon text */
+}

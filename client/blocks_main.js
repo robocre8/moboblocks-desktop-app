@@ -13,6 +13,8 @@ import {
   while_block,
   compare_block,
   integer_block,
+  float_block,
+  operation_block,
   servo_angle_block,
   motor_control_pwm_block,
   motor_control_vel_block,
@@ -23,7 +25,9 @@ import {
   buzzer_block,
   rgb_led_block,
   delay_block,
-  print_block
+  print_block,
+  adv_operation_block,
+  trig_operation_block
 } from './blocks_definitions.js';
 
 
@@ -43,6 +47,10 @@ const blocksDefinitions = [
   while_block,
   compare_block,
   integer_block,
+  float_block,
+  operation_block,
+  adv_operation_block,
+  trig_operation_block,
 
   servo_angle_block,
   motor_control_pwm_block,
@@ -121,6 +129,7 @@ const MoboTheme = Blockly.Theme.defineTheme('mobo_theme', {
 
 const workspace = Blockly.inject('blocklyDiv', { 
     toolbox: blocksToolbox,
+    readOnly: false,
     trashcan: true,           // Shows the trashcan in the corner
     
     // --- ADD SCROLLING HERE ---
@@ -165,8 +174,30 @@ window.addEventListener('resize', () => {
 //        BLOCKS FUNCTIONS
 //---------------------------------------------------------
 
+function showFeedback(message) {
+  const toast = document.getElementById('status-toast');
+  toast.innerText = message;
+  toast.className = "toast-visible";
+  
+  // Hide it automatically after 3 seconds
+  setTimeout(() => {
+    toast.className = "toast-hidden";
+  }, 3000);
+}
+
 async function sendBlocks(event) {
   if (event) event.preventDefault(); 
+
+  // 1. CRITICAL: Force close any active input fields or dropdowns before moving focus
+  if (typeof Blockly !== 'undefined') {
+    if (Blockly.WidgetDiv) Blockly.WidgetDiv.hide();
+    if (Blockly.DropDownDiv) Blockly.DropDownDiv.hideWithoutAnimation();
+  }
+  
+  // Explicitly remove browser focus from whatever field you are editing
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
   
   try {
     const code = pythonGenerator.workspaceToCode(workspace);
@@ -180,7 +211,7 @@ async function sendBlocks(event) {
 
     if (response.ok) {
       console.log("Code Sent Successfully");
-      alert("CODE SENT SUCCESSFULLY");
+      showFeedback("CODE SENT SUCCESSFULLY");
     }
   } catch (error) {
     console.error("Detailed Error:", error);
@@ -190,6 +221,11 @@ async function sendBlocks(event) {
 
 async function stop(event) {
   if (event) event.preventDefault();
+
+  // Force close inputs here as well just in case they hit emergency stop while typing
+  if (typeof Blockly !== 'undefined' && Blockly.WidgetDiv) {
+    Blockly.WidgetDiv.hide();
+  }
 
   try {
     const response = await fetch("http://127.0.0.1:8000/stop", {
@@ -201,7 +237,7 @@ async function stop(event) {
     if (response.ok) {
       const result = await response.json();
       console.log("Robot Stop Signal:", result.status);
-      alert("STOP COMMAND SENT");
+      showFeedback("STOP COMMAND SENT");
     }
     
   } catch (error) {

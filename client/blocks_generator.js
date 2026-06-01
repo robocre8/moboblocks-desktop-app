@@ -40,7 +40,7 @@ pythonGenerator.forBlock['stop_block'] = function(block, generator) {
   return `robot.stop()\n`;
 };
 
-// ----------------------- CONDITION -------------------------
+// ----------------------- MATHS/CONDITION -------------------------
 
 pythonGenerator.forBlock['if_else_block'] = function(block, generator) {
   // 1. Get the condition (the block plugged into the side)
@@ -86,6 +86,61 @@ pythonGenerator.forBlock['integer_block'] = function(block) {
   // because a single number can't be "broken up" by math rules.
   return [String(numberValue), pythonGenerator.ORDER_ATOMIC];
 };
+
+pythonGenerator.forBlock['float_block'] = function(block) {
+  const numberValue = block.getFieldValue('FLOAT');
+  
+  // Return the number as a string, and use ORDER_ATOMIC 
+  // because a single number can't be "broken up" by math rules.
+  return [String(numberValue), pythonGenerator.ORDER_ATOMIC];
+};
+
+pythonGenerator.forBlock['operation_block'] = function(block, generator) {
+  // 1. Get code for Input A and Input B
+  const value_a = generator.valueToCode(block, 'FLOAT1', pythonGenerator.ORDER_ATOMIC) || '0.0';
+  const value_b = generator.valueToCode(block, 'FLOAT2', pythonGenerator.ORDER_ATOMIC) || '0.0';
+  
+  // 2. Get the operator from the dropdown
+  const operator = block.getFieldValue('OPERATION');
+  
+  // 3. Combine them into the Python comparison string
+  const code = `${value_a} ${operator} ${value_b}`;
+  
+  // 4. Return as a value (with its priority level)
+  return [code, pythonGenerator.ORDER_RELATIONAL];
+};
+
+
+pythonGenerator.forBlock['adv_operation_block'] = function(block, generator) {
+  // 1. Get code for Input A and Input B
+  const value = generator.valueToCode(block, 'FLOAT', pythonGenerator.ORDER_ATOMIC) || '0.0';
+  
+  // 2. Get the operator from the dropdown
+  const operator = block.getFieldValue('ADV_OPERATION');
+  
+  // 3. Combine them into the Python comparison string
+  const code = `${operator}(${value})`;
+  
+  // 4. Return as a value (with its priority level)
+  return [code, pythonGenerator.ORDER_RELATIONAL];
+};
+
+
+pythonGenerator.forBlock['trig_operation_block'] = function(block, generator) {
+  const value = generator.valueToCode(block, 'FLOAT', pythonGenerator.ORDER_ATOMIC) || '0.0';
+  
+  // 2. Get the operator from the dropdown
+  const operator = block.getFieldValue('TRIG_OPERATION');
+  
+  // 3. Combine them into the Python comparison string
+  const code = `${operator}(${value})`;
+  
+  // 4. Return as a value (with its priority level)
+  return [code, pythonGenerator.ORDER_RELATIONAL];
+};
+
+
+// ----------------------- MATHS/CONDITION -------------------------
 
 pythonGenerator.forBlock['while_block'] = function(block, generator) {
   // 1. Get the condition (like 'distance < 10')

@@ -155,7 +155,7 @@ export const stop_block = {
 }
 
 
-// ---------- CONDITIONS ------------------
+// ---------- MATHS/CONDITIONS ------------------
 
 export const if_else_block = {
   "type": "if_else_block",
@@ -262,6 +262,187 @@ export const integer_block = {
   // "colour": 225,
   "style": "logic_blocks"
 }
+
+export const float_block = {
+  "type": "float_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "float %1 %2",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "FLOAT",
+      "value": 0,
+      "precision": 0.001
+    },
+    {
+      "type": "input_dummy",
+      "name": "float_input"
+    }
+  ],
+  "output": "Number",
+  // "colour": 225,
+  "style": "logic_blocks"
+}
+
+
+export const operation_block = {
+  "type": "operation_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "%1 %2 %3 %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "FLOAT1",
+      "check": "Number"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "OPERATION",
+      "options": [
+        [
+          "+",
+          "+"
+        ],
+        [
+          "-",
+          "-"
+        ],
+        [
+          "x",
+          "*"
+        ],
+        [
+          "/",
+          "/"
+        ],
+        [
+          "^",
+          "^"
+        ]
+      ]
+    },
+    {
+      "type": "input_dummy",
+      "name": "operation_input"
+    },
+    {
+      "type": "input_value",
+      "name": "FLOAT2",
+      "check": "Number"
+    }
+  ],
+  "output": "Number",
+  // "colour": 225,
+  "style": "logic_blocks"
+}
+
+
+export const adv_operation_block = {
+  "type": "adv_operation_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "%1 %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "ADV_OPERATION",
+      "options": [
+        [
+          "square root",
+          "sqrt"
+        ],
+        [
+          "absolute",
+          "abs"
+        ],
+        [
+          "toInt",
+          "int"
+        ],
+        [
+          "toFloat",
+          "float"
+        ],
+        [
+          "e^",
+          "exp"
+        ],
+        [
+          "10^",
+          "10*exp"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "FLOAT",
+      "check": "Number"
+    }
+  ],
+  "output": "Number",
+  // "colour": 225,
+  "style": "logic_blocks"
+}
+
+export const trig_operation_block = {
+  "type": "trig_operation_block",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "%1 %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "TRIG_OPERATION",
+      "options": [
+        [
+          "sin",
+          "sin"
+        ],
+        [
+          "cos",
+          "cos"
+        ],
+        [
+          "tan",
+          "tan"
+        ],
+        [
+          "asin",
+          "asin"
+        ],
+        [
+          "acos",
+          "acos"
+        ],
+        [
+          "atan",
+          "atan"
+        ],
+        [
+          "toDegree",
+          "toDeg"
+        ],
+        [
+          "toRadians",
+          "toRad"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "FLOAT",
+      "check": "Number"
+    }
+  ],
+  "output": null,
+  // "colour": 225,
+  "style": "logic_blocks"
+}
+
+
+// ---------- LOOP ------------------
 
 export const while_block = {
   "type": "while_block",

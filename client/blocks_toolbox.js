@@ -65,7 +65,7 @@ export const blocksToolbox = {
     },
     {
       "kind": "category",
-      "name": "Logic",
+      "name": "Math",
       // "colour": "210",
       "categorystyle": "logic_category",
       "cssConfig": {
@@ -76,8 +76,12 @@ export const blocksToolbox = {
       },
       "contents": [
         { "kind": "block", "type": "if_else_block" },
-        { "kind": "block", "type": "integer_block" },
         { "kind": "block", "type": "compare_block" },
+        { "kind": "block", "type": "integer_block" },
+        { "kind": "block", "type": "float_block" },
+        { "kind": "block", "type": "operation_block" },
+        { "kind": "block", "type": "adv_operation_block" },
+        { "kind": "block", "type": "trig_operation_block" },
       ]
     },
     {
