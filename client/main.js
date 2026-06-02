@@ -106,6 +106,8 @@ function createWindow() {
 
   // Load your Blockly frontend
   win.loadFile(path.join(__dirname, 'index.html'));
+
+  win.setMenuBarVisibility(false);
 }
 
 app.whenReady().then(() => {

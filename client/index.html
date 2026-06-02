@@ -6,31 +6,42 @@
   <script src="./node_modules/blockly/blockly_compressed.js"></script>
   <script src="./node_modules/blockly/python_compressed.js"></script>
   <script src="./node_modules/blockly/blocks_compressed.js"></script>
-  <!-- <script src="./node_modules/blockly/msg/en.js"></script> -->
-  <!-- <script src="./node_modules/blockly/themes/modern.js"></script> -->
 
   <script type="module" src="./blocks_main.js"></script>
   <link rel="stylesheet" href="./styles.css">
 </head>
 
-<body class="main-layout"> <h1 class="logo-text">
-      <span>M</span><span>O</span><span>B</span><span>O</span>-<span>B</span><span>L</span><span>O</span><span>C</span><span>K</span><span>S</span>
-    </h1>
+<body class="main-layout">
 
-    <div class="middle-section">
-      <div id="blocklyArea">
-        <div id="blocklyDiv"></div>
-      </div>
+  <header class="vex-navbar">
+    <div class="nav-left">
+      <h1 class="logo-text">
+        <span>M</span><span>O</span><span>B</span><span>O</span> <span>B</span><span>L</span><span>O</span><span>C</span><span>K</span><span>S</span>
+      </h1>
       
-      <div class="button-container">
-        <button class="open-btn" id="open-btn-id">📂 OPEN</button>
-        <button class="save-btn" id="save-btn-id">💾 SAVE</button>
-        <button class="clear-btn" id="clear-btn-id">🗑️ CLEAR</button>
-        <button class="stop-btn" id="stop-btn-id">🛑 STOP</button>
-        <button class="send-btn" id="send-btn-id">🚀 SEND</button>
+      <div class="dropdown">
+        <button class="menu-btn">File ▾</button>
+        <div class="dropdown-content">
+          <a href="#" id="open-btn-id">📂 Load From Your Device</a>
+          <a href="#" id="save-btn-id">💾 Save To Your Device</a>
+        </div>
       </div>
     </div>
+    
+    <div class="nav-right">
+      <button class="clear-btn" id="clear-btn-id">CLEAR</button>
+      <button class="stop-btn" id="stop-btn-id">STOP</button>
+      <button class="send-btn" id="send-btn-id">SEND</button>
+    </div>
+  </header>
 
-    <div id="status-toast" class="toast-hidden">CODE SENT SUCCESSFULLY</div>
+  <div class="middle-section">
+    <div id="blocklyArea">
+      <div id="blocklyDiv"></div>
+    </div>
+  </div>
+
+  <div id="status-toast" class="toast-hidden">CODE SENT SUCCESSFULLY</div>
+
 </body>
 </html>

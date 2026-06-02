@@ -30,12 +30,6 @@ import {
   trig_operation_block
 } from './blocks_definitions.js';
 
-
-
-
-
-
-
 //---------------------------------------------------------
 //        BLOCKS DEFINITIONS
 //---------------------------------------------------------
@@ -71,26 +65,10 @@ const blocksDefinitions = [
 Blockly.defineBlocksWithJsonArray(blocksDefinitions);
 
 //---------------------------------------------------------
-
-
-
-
-
-
-
-//---------------------------------------------------------
 //        BLOCKS PYTHON GENERATORS
 //---------------------------------------------------------
 
 import { pythonGenerator } from './blocks_generator.js';
-
-//--------------------------------------------------------
-
-
-
-
-
-
 
 //---------------------------------------------------------
 //        BLOCKS WORKSPACE
@@ -99,42 +77,73 @@ import { pythonGenerator } from './blocks_generator.js';
 const MoboTheme = Blockly.Theme.defineTheme('mobo_theme', {
     'base': Blockly.Themes.Classic,
     'blockStyles': {
-        'motion_blocks':   { 'colourPrimary': '#8cc9fc' },
-        'sensor_blocks':   { 'colourPrimary': '#80d4cc' },
-        'output_blocks':   { 'colourPrimary': '#fea8a8' },
-        'logic_blocks':    { 'colourPrimary': '#D1C4E9' },
-        'loop_blocks':  { 'colourPrimary': '#C8E6C9' },
-        'utility_blocks':  { 'colourPrimary': '#fdd353' }
+        /* --- HIGH-SATURATION VEXCODE MATCHING COLOR MAP --- */
+        'motion_blocks':   { 'colourPrimary': '#4C97FF' },
+        'sensor_blocks':   { 'colourPrimary': '#3cc3fb' },
+        'output_blocks':   { 'colourPrimary': '#FF6680' },
+        'logic_blocks':    { 'colourPrimary': '#59C059' },
+        'loop_blocks':     { 'colourPrimary': '#FFAB19' },
+        'utility_blocks':  { 'colourPrimary': '#9966FF' }
     },
     'categoryStyles': {
-        'motion_category':   { 'colour': '#8cc9fc' },
-        'sensor_category':   { 'colour': '#80d4cc' },
-        'output_category':   { 'colour': '#fea8a8' },
-        'logic_category':    { 'colour': '#D1C4E9' },
-        'loop_category':  { 'colour': '#C8E6C9' },
-        'utility_category':  { 'colour': '#fdd353' }
+        'motion_category':   { 'colour': '#4C97FF' },
+        'sensor_category':   { 'colour': '#3cc3fb' },
+        'output_category':   { 'colour': '#FF6680' },
+        'logic_category':    { 'colour': '#59C059' },
+        'loop_category':     { 'colour': '#FFAB19' },
+        'utility_category':  { 'colour': '#9966FF' }
     },
     'componentStyles': {
-        'workspaceBackgroundColour': '#F9F9F9', // Light grey background like Scratch
-        'toolboxBackgroundColour': '#FFFFFF',
-        'toolboxTextColour': '#575E75',
-        'flyoutBackgroundColour': '#F9F9F9',
-        'scrollbarColour': '#CCCCCC',
-        'insertionMarkerColour': '#000000',
-        'insertionMarkerOpacity': 0.1,
-        'fieldTextColor': '#333333',
-        'dropdownPlaceholderColour': '#333333'
+        'workspaceBackgroundColour': '#f5f7fa',
+        'toolboxBackgroundColour': '#ffffff',   
+        'toolboxTextColour': '#0F1424',            
+        'flyoutBackgroundColour': '#f1f5f9',    
+        'scrollbarColour': '#cbd5e1',
+        'scrollbarOpacity': 0.6,
+        'insertionMarkerColour': '#0F1424',
+        'insertionMarkerOpacity': 0.15
     }
 });
+
+// const MoboTheme = Blockly.Theme.defineTheme('mobo_theme', {
+//     'base': Blockly.Themes.Classic,
+//     'blockStyles': {
+//         'motion_blocks':   { 'colourPrimary': '#8cc9fc' },
+//         'sensor_blocks':   { 'colourPrimary': '#80d4cc' },
+//         'output_blocks':   { 'colourPrimary': '#fea8a8' },
+//         'logic_blocks':    { 'colourPrimary': '#D1C4E9' },
+//         'loop_blocks':     { 'colourPrimary': '#C8E6C9' },
+//         'utility_blocks':  { 'colourPrimary': '#fdd353' }
+//     },
+//     'categoryStyles': {
+//         'motion_category':   { 'colour': '#8cc9fc' },
+//         'sensor_category':   { 'colour': '#80d4cc' },
+//         'output_category':   { 'colour': '#fea8a8' },
+//         'logic_category':    { 'colour': '#D1C4E9' },
+//         'loop_category':     { 'colour': '#C8E6C9' },
+//         'utility_category':  { 'colour': '#fdd353' }
+//     },
+//     'componentStyles': {
+//         /* --- UPDATED FOR VEXCODE COMPONENT SCHEME --- */
+//         'workspaceBackgroundColour': '#f5f7fa', // Premium light grey-blue canvas tint
+//         'toolboxBackgroundColour': '#ffffff',   // Clean white sidebar panel
+//         'toolboxTextColour': '#575E75',
+//         'flyoutBackgroundColour': '#f0f2f5',    // Slightly contrasting block drawer tint
+//         'scrollbarColour': '#cbd5e1',
+//         'scrollbarOpacity': 0.6,
+//         'insertionMarkerColour': '#000000',
+//         'insertionMarkerOpacity': 0.1,
+//         'fieldTextColor': '#333333',
+//         'dropdownPlaceholderColour': '#333333'
+//     }
+// });
 
 const workspace = Blockly.inject('blocklyDiv', { 
     toolbox: blocksToolbox,
     readOnly: false,
-    trashcan: true,           // Shows the trashcan in the corner
-    
-    // --- ADD SCROLLING HERE ---
-    renderer: 'zelos', // 'zelos' is the renderer that emulates Scratch
-    theme: MoboTheme, // Provides brighter, Scratch-like colors
+    trashcan: true,           
+    renderer: 'zelos',        // Matches Scratch/VEX block designs
+    theme: MoboTheme,         
     
     move: {
         scrollbars: true,
@@ -142,16 +151,17 @@ const workspace = Blockly.inject('blocklyDiv', {
         wheel: true
     },
     grid: {
-      spacing: 25,         // Comfortable distance between dots/lines
-      length: 3,           // Makes them subtle dots instead of long lines
-      colour: '#ccc',      // Light grey
-      snap: true           // Helps keep blocks organized and aligned
+      /* --- UPDATED TO VEXCODE CANVAS DOT SPECIFICATIONS --- */
+      spacing: 20,         
+      length: 2,           // Keeps grid markers clean, tiny subtle dots
+      colour: '#e0e0e0',   
+      snap: true           
     },
     zoom: {
-      controls: true,      // Essential for "infinite" feel
-      wheel: true,         // Allows fast navigation
-      startScale: 0.75,
-      maxScale: 2,
+      controls: true,      
+      wheel: true,         
+      startScale: 0.75,     // Zelos blocks are chunkier; 1.0 scale matches VEX beautifully
+      maxScale: 1.5,
       minScale: 0.3,
       scaleSpeed: 1.2
     }
@@ -160,15 +170,6 @@ const workspace = Blockly.inject('blocklyDiv', {
 window.addEventListener('resize', () => {
   Blockly.svgResize(workspace);
 });
-
-//------------------------------------------------------
-
-
-
-
-
-
-
 
 //---------------------------------------------------------
 //        BLOCKS FUNCTIONS
@@ -188,13 +189,11 @@ function showFeedback(message) {
 async function sendBlocks(event) {
   if (event) event.preventDefault(); 
 
-  // 1. CRITICAL: Force close any active input fields or dropdowns before moving focus
   if (typeof Blockly !== 'undefined') {
     if (Blockly.WidgetDiv) Blockly.WidgetDiv.hide();
     if (Blockly.DropDownDiv) Blockly.DropDownDiv.hideWithoutAnimation();
   }
   
-  // Explicitly remove browser focus from whatever field you are editing
   if (document.activeElement) {
     document.activeElement.blur();
   }
@@ -218,11 +217,9 @@ async function sendBlocks(event) {
   }
 }
 
-
 async function stop(event) {
   if (event) event.preventDefault();
 
-  // Force close inputs here as well just in case they hit emergency stop while typing
   if (typeof Blockly !== 'undefined' && Blockly.WidgetDiv) {
     Blockly.WidgetDiv.hide();
   }
@@ -245,7 +242,6 @@ async function stop(event) {
   }
 }
 
-
 function clearBlocks() {
   if (confirm("Are you sure you want to clear all blocks?")) {
     workspace.clear();
@@ -262,7 +258,7 @@ async function saveBlocks() {
 
   if (filePath) {
     const state = Blockly.serialization.workspaces.save(workspace);
-    const data = JSON.stringify(state, null, 2); // Prettify the JSON
+    const data = JSON.stringify(state, null, 2); 
     fs.writeFileSync(filePath, data);
     console.log("Saved to:", filePath);
   }
@@ -278,13 +274,11 @@ async function openBlocks() {
     const data = fs.readFileSync(filePaths[0], 'utf8');
     const json = JSON.parse(data);
     
-    // Clear the current workspace before loading the new one
     workspace.clear();
     Blockly.serialization.workspaces.load(json, workspace);
     console.log("Loaded:", filePaths[0]);
   }
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('send-btn-id');
@@ -322,5 +316,4 @@ document.addEventListener('DOMContentLoaded', () => {
             openBlocks();
         });
     }
-
 });
