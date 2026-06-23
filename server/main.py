@@ -125,19 +125,19 @@ async def run_robot(payload: CodePayload):
 
     # 2. Start the new process
 
-    python_cmd = "python" if sys.platform == "win32" else "python3"
+    # python_cmd = "python" if sys.platform == "win32" else "python3"
     
-    try:
-        current_robot_process = subprocess.Popen(
-            [python_cmd, ROBOT_FILE_PATH],
-            cwd=WRITABLE_DIR
-        )
-    except FileNotFoundError:
-        return {"status": "Error", "message": "Python not found on this system."}
+    # try:
+    #     current_robot_process = subprocess.Popen(
+    #         [python_cmd, ROBOT_FILE_PATH],
+    #         cwd=WRITABLE_DIR
+    #     )
+    # except FileNotFoundError:
+    #     return {"status": "Error", "message": "Python not found on this system."}
 
-    return {"status": "Running", "path": ROBOT_FILE_PATH, "pid": current_robot_process.pid}
+    # return {"status": "Running", "path": ROBOT_FILE_PATH, "pid": current_robot_process.pid}
 
-    # return {"status": "Received", "received_code": payload.code}
+    return {"status": "Received", "received_code": payload.code}
 
 
 if __name__ == "__main__":

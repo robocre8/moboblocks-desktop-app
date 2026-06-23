@@ -7,27 +7,53 @@ const fs = window.require('fs');
 
 import {blocksToolbox} from './blocks_toolbox.js';
 import {
-  if_else_block,
-  forever_block,
-  repeat_block,
-  while_block,
-  compare_block,
-  integer_block,
-  float_block,
-  operation_block,
-  servo_angle_block,
+  drive_block,
+  turn_block,
+  drive_for_block,
+  turn_for_block,
   motor_control_pwm_block,
   motor_control_vel_block,
   robot_control_block,
   stop_block,
-  read_sonar_block,
-  read_line_sensor_block,
+  set_drive_velocity_block,
+  set_turn_velocity_block,
+
+  if_else_block,
+  forever_block,
+  repeat_block,
+  while_block,
+  wait_until_block,
+  delay_block,
+
+  operation_block,
+  lt_condition_block,
+  gt_condition_block,
+  lte_condition_block,
+  gte_condition_block,
+  eq_condition_block,
+  and_logic_block,
+  or_logic_block,
+  not_logic_block,
+  integer_block,
+  float_block,
+
+  servo_angle_block,
   buzzer_block,
   rgb_led_block,
-  delay_block,
   print_block,
-  adv_operation_block,
-  trig_operation_block
+
+  read_sonar_block,
+  read_tof_block,
+  read_distance_sensor_block,
+  set_distance_sensor_position,
+  check_distance_sensor_found_obstacle_block,
+  read_line_sensor_block,
+  read_full_line_sensor_block,
+  read_color_sensor_block,
+  set_color_detection,
+  check_color_sensor_found_color_block,
+  read_robot_dist_block,
+  read_robot_yaw_block,
 } from './blocks_definitions.js';
 
 //---------------------------------------------------------
@@ -35,31 +61,53 @@ import {
 //---------------------------------------------------------
 
 const blocksDefinitions = [
-  if_else_block,
-  forever_block,
-  repeat_block,
-  while_block,
-  compare_block,
-  integer_block,
-  float_block,
-  operation_block,
-  adv_operation_block,
-  trig_operation_block,
-
-  servo_angle_block,
+  drive_block,
+  turn_block,
+  drive_for_block,
+  turn_for_block,
   motor_control_pwm_block,
   motor_control_vel_block,
   robot_control_block,
   stop_block,
+  set_drive_velocity_block,
+  set_turn_velocity_block,
 
-  read_sonar_block,
-  read_line_sensor_block,
+  if_else_block,
+  forever_block,
+  repeat_block,
+  while_block,
+  wait_until_block,
+  delay_block,
 
+  operation_block,
+  lt_condition_block,
+  gt_condition_block,
+  lte_condition_block,
+  gte_condition_block,
+  eq_condition_block,
+  and_logic_block,
+  or_logic_block,
+  not_logic_block,
+  integer_block,
+  float_block,
+
+  servo_angle_block,
   buzzer_block,
   rgb_led_block,
-  
-  delay_block,
-  print_block,              
+  print_block,
+
+  read_sonar_block,
+  read_tof_block,
+  read_distance_sensor_block,
+  set_distance_sensor_position,
+  check_distance_sensor_found_obstacle_block,
+  read_line_sensor_block,
+  read_full_line_sensor_block,
+  read_color_sensor_block,
+  set_color_detection,
+  check_color_sensor_found_color_block,
+  read_robot_dist_block,
+  read_robot_yaw_block,              
 ];
 
 Blockly.defineBlocksWithJsonArray(blocksDefinitions);
@@ -79,19 +127,19 @@ const MoboTheme = Blockly.Theme.defineTheme('mobo_theme', {
     'blockStyles': {
         /* --- HIGH-SATURATION VEXCODE MATCHING COLOR MAP --- */
         'motion_blocks':   { 'colourPrimary': '#4C97FF' },
-        'sensor_blocks':   { 'colourPrimary': '#3cc3fb' },
-        'output_blocks':   { 'colourPrimary': '#FF6680' },
+        'sensor_blocks':   { 'colourPrimary': '#3498db' },
+        'output_blocks':   { 'colourPrimary': '#9966FF' },
         'logic_blocks':    { 'colourPrimary': '#59C059' },
-        'loop_blocks':     { 'colourPrimary': '#FFAB19' },
-        'utility_blocks':  { 'colourPrimary': '#9966FF' }
+        'loop_blocks':     { 'colourPrimary': '#dba903' },
+        // 'utility_blocks':   { 'colourPrimary': '#f73f5e' },
     },
     'categoryStyles': {
         'motion_category':   { 'colour': '#4C97FF' },
-        'sensor_category':   { 'colour': '#3cc3fb' },
-        'output_category':   { 'colour': '#FF6680' },
+        'sensor_category':   { 'colour': '#3498db' },
+        'output_category':   { 'colour': '#9966FF' },
         'logic_category':    { 'colour': '#59C059' },
-        'loop_category':     { 'colour': '#FFAB19' },
-        'utility_category':  { 'colour': '#9966FF' }
+        'loop_category':     { 'colour': '#dba903' },
+        // 'utility_category':   { 'colour': '#f73f5e' },
     },
     'componentStyles': {
         'workspaceBackgroundColour': '#f5f7fa',
@@ -105,42 +153,8 @@ const MoboTheme = Blockly.Theme.defineTheme('mobo_theme', {
     }
 });
 
-// const MoboTheme = Blockly.Theme.defineTheme('mobo_theme', {
-//     'base': Blockly.Themes.Classic,
-//     'blockStyles': {
-//         'motion_blocks':   { 'colourPrimary': '#8cc9fc' },
-//         'sensor_blocks':   { 'colourPrimary': '#80d4cc' },
-//         'output_blocks':   { 'colourPrimary': '#fea8a8' },
-//         'logic_blocks':    { 'colourPrimary': '#D1C4E9' },
-//         'loop_blocks':     { 'colourPrimary': '#C8E6C9' },
-//         'utility_blocks':  { 'colourPrimary': '#fdd353' }
-//     },
-//     'categoryStyles': {
-//         'motion_category':   { 'colour': '#8cc9fc' },
-//         'sensor_category':   { 'colour': '#80d4cc' },
-//         'output_category':   { 'colour': '#fea8a8' },
-//         'logic_category':    { 'colour': '#D1C4E9' },
-//         'loop_category':     { 'colour': '#C8E6C9' },
-//         'utility_category':  { 'colour': '#fdd353' }
-//     },
-//     'componentStyles': {
-//         /* --- UPDATED FOR VEXCODE COMPONENT SCHEME --- */
-//         'workspaceBackgroundColour': '#f5f7fa', // Premium light grey-blue canvas tint
-//         'toolboxBackgroundColour': '#ffffff',   // Clean white sidebar panel
-//         'toolboxTextColour': '#575E75',
-//         'flyoutBackgroundColour': '#f0f2f5',    // Slightly contrasting block drawer tint
-//         'scrollbarColour': '#cbd5e1',
-//         'scrollbarOpacity': 0.6,
-//         'insertionMarkerColour': '#000000',
-//         'insertionMarkerOpacity': 0.1,
-//         'fieldTextColor': '#333333',
-//         'dropdownPlaceholderColour': '#333333'
-//     }
-// });
-
 const workspace = Blockly.inject('blocklyDiv', { 
     toolbox: blocksToolbox,
-    readOnly: false,
     trashcan: true,           
     renderer: 'zelos',        // Matches Scratch/VEX block designs
     theme: MoboTheme,         
@@ -162,7 +176,7 @@ const workspace = Blockly.inject('blocklyDiv', {
       wheel: true,         
       startScale: 0.75,     // Zelos blocks are chunkier; 1.0 scale matches VEX beautifully
       maxScale: 1.5,
-      minScale: 0.3,
+      minScale: 0.5,
       scaleSpeed: 1.2
     }
 });

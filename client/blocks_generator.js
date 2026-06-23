@@ -5,6 +5,52 @@
 const pythonGenerator = Blockly.Python;
 
 // ----------------------- MOVEMENTS -------------------------
+pythonGenerator.forBlock['drive_block'] = function(block, generator) {
+
+  const val = block.getFieldValue('VALUE');
+  
+  if (val == "1"){
+    return `robot.drive(robot.FORWARD)\n`;
+  } else {
+    return `robot.drive(robot.BACKWARD)\n`;
+  }
+};
+
+pythonGenerator.forBlock['turn_block'] = function(block, generator) {
+
+  const val = block.getFieldValue('VALUE');
+  
+  if (val == "1"){
+    return `robot.drive(robot.LEFT)\n`;
+  } else {
+    return `robot.drive(robot.RIGHT)\n`;
+  }
+};
+
+pythonGenerator.forBlock['drive_for_block'] = function(block, generator) {
+
+  const dir = block.getFieldValue('DIRECTION');
+  const dist = block.getFieldValue('DISTANCE') || '0';
+
+  if (dir == "1"){
+    return `robot.driveFor(robot.FORWARD, ${dist}*10)\n`;
+  } else {
+    return `robot.driveFor(robot.BACKWARD, ${dist}*10)\n`;
+  }
+};
+
+pythonGenerator.forBlock['turn_for_block'] = function(block, generator) {
+
+  const dir = block.getFieldValue('DIRECTION');
+  const angle = block.getFieldValue('ANGLE') || '0';
+
+  if (dir == "1"){
+    return `robot.driveFor(robot.LEFT, ${angle})\n`;
+  } else {
+    return `robot.driveFor(robot.RIGHT, ${angle})\n`;
+  }
+};
+
 pythonGenerator.forBlock['robot_control_block'] = function(block, generator) {
   const linear_speed = block.getFieldValue('LINEAR') || '0';
   const angular_speed = block.getFieldValue('ANGULAR') || '0';
@@ -40,6 +86,68 @@ pythonGenerator.forBlock['stop_block'] = function(block, generator) {
   return `robot.stop()\n`;
 };
 
+pythonGenerator.forBlock['set_drive_velocity_block'] = function(block, generator) {
+  const val = block.getFieldValue('VALUE') || '0';
+  
+  return `robot.percent_drive_speed = ${val}\n`;
+};
+
+pythonGenerator.forBlock['set_turn_velocity_block'] = function(block, generator) {
+  const val = block.getFieldValue('VALUE') || '0';
+  
+  return `robot.percent_turn_speed = ${val}\n`;
+};
+
+// ----------------------- MATHS/CONDITION -------------------------
+
+// pythonGenerator.forBlock['compare_block'] = function(block, generator) {
+//   // 1. Get code for Input A and Input B
+//   const value_a = generator.valueToCode(block, 'A', pythonGenerator.ORDER_ATOMIC) || '0';
+//   const value_b = generator.valueToCode(block, 'B', pythonGenerator.ORDER_ATOMIC) || '0';
+  
+//   // 2. Get the operator from the dropdown
+//   const operator = block.getFieldValue('OPTION');
+  
+//   // 3. Combine them into the Python comparison string
+//   const code = `${value_a} ${operator} ${value_b}`;
+  
+//   // 4. Return as a value (with its priority level)
+//   return [code, pythonGenerator.ORDER_RELATIONAL];
+// };
+
+pythonGenerator.forBlock['integer_block'] = function(block) {
+  // Use 'INT' 
+  const numberValue = block.getFieldValue('INT');
+  
+  // Return the number as a string, and use ORDER_ATOMIC 
+  // because a single number can't be "broken up" by math rules.
+  return [String(numberValue), pythonGenerator.ORDER_ATOMIC];
+};
+
+pythonGenerator.forBlock['float_block'] = function(block) {
+  const numberValue = block.getFieldValue('FLOAT');
+  
+  // Return the number as a string, and use ORDER_ATOMIC 
+  // because a single number can't be "broken up" by math rules.
+  return [String(numberValue), pythonGenerator.ORDER_ATOMIC];
+};
+
+pythonGenerator.forBlock['operation_block'] = function(block, generator) {
+  // 1. Get code for Input A and Input B
+  const value_a = generator.valueToCode(block, 'A', pythonGenerator.ORDER_ATOMIC) || '0.0';
+  const value_b = generator.valueToCode(block, 'B', pythonGenerator.ORDER_ATOMIC) || '0.0';
+  
+  // 2. Get the operator from the dropdown
+  const operator = block.getFieldValue('OPERATION');
+  
+  // 3. Combine them into the Python comparison string
+  const code = `${value_a} ${operator} ${value_b}`;
+  
+  // 4. Return as a value (with its priority level)
+  return [code, pythonGenerator.ORDER_RELATIONAL];
+};
+
+
 // ----------------------- MATHS/CONDITION -------------------------
 
 pythonGenerator.forBlock['if_else_block'] = function(block, generator) {
@@ -62,85 +170,6 @@ pythonGenerator.forBlock['if_else_block'] = function(block, generator) {
   
   return code;
 };
-
-pythonGenerator.forBlock['compare_block'] = function(block, generator) {
-  // 1. Get code for Input A and Input B
-  const value_a = generator.valueToCode(block, 'A', pythonGenerator.ORDER_ATOMIC) || '0';
-  const value_b = generator.valueToCode(block, 'B', pythonGenerator.ORDER_ATOMIC) || '0';
-  
-  // 2. Get the operator from the dropdown
-  const operator = block.getFieldValue('OPTION');
-  
-  // 3. Combine them into the Python comparison string
-  const code = `${value_a} ${operator} ${value_b}`;
-  
-  // 4. Return as a value (with its priority level)
-  return [code, pythonGenerator.ORDER_RELATIONAL];
-};
-
-pythonGenerator.forBlock['integer_block'] = function(block) {
-  // Use 'INT' 
-  const numberValue = block.getFieldValue('INT');
-  
-  // Return the number as a string, and use ORDER_ATOMIC 
-  // because a single number can't be "broken up" by math rules.
-  return [String(numberValue), pythonGenerator.ORDER_ATOMIC];
-};
-
-pythonGenerator.forBlock['float_block'] = function(block) {
-  const numberValue = block.getFieldValue('FLOAT');
-  
-  // Return the number as a string, and use ORDER_ATOMIC 
-  // because a single number can't be "broken up" by math rules.
-  return [String(numberValue), pythonGenerator.ORDER_ATOMIC];
-};
-
-pythonGenerator.forBlock['operation_block'] = function(block, generator) {
-  // 1. Get code for Input A and Input B
-  const value_a = generator.valueToCode(block, 'FLOAT1', pythonGenerator.ORDER_ATOMIC) || '0.0';
-  const value_b = generator.valueToCode(block, 'FLOAT2', pythonGenerator.ORDER_ATOMIC) || '0.0';
-  
-  // 2. Get the operator from the dropdown
-  const operator = block.getFieldValue('OPERATION');
-  
-  // 3. Combine them into the Python comparison string
-  const code = `${value_a} ${operator} ${value_b}`;
-  
-  // 4. Return as a value (with its priority level)
-  return [code, pythonGenerator.ORDER_RELATIONAL];
-};
-
-
-pythonGenerator.forBlock['adv_operation_block'] = function(block, generator) {
-  // 1. Get code for Input A and Input B
-  const value = generator.valueToCode(block, 'FLOAT', pythonGenerator.ORDER_ATOMIC) || '0.0';
-  
-  // 2. Get the operator from the dropdown
-  const operator = block.getFieldValue('ADV_OPERATION');
-  
-  // 3. Combine them into the Python comparison string
-  const code = `${operator}(${value})`;
-  
-  // 4. Return as a value (with its priority level)
-  return [code, pythonGenerator.ORDER_RELATIONAL];
-};
-
-
-pythonGenerator.forBlock['trig_operation_block'] = function(block, generator) {
-  const value = generator.valueToCode(block, 'FLOAT', pythonGenerator.ORDER_ATOMIC) || '0.0';
-  
-  // 2. Get the operator from the dropdown
-  const operator = block.getFieldValue('TRIG_OPERATION');
-  
-  // 3. Combine them into the Python comparison string
-  const code = `${operator}(${value})`;
-  
-  // 4. Return as a value (with its priority level)
-  return [code, pythonGenerator.ORDER_RELATIONAL];
-};
-
-
-// ----------------------- MATHS/CONDITION -------------------------
 
 pythonGenerator.forBlock['while_block'] = function(block, generator) {
   // 1. Get the condition (like 'distance < 10')
@@ -181,6 +210,19 @@ pythonGenerator.forBlock['repeat_block'] = function(block, generator) {
   return `for _ in range(${num_of_repeat}):\n${branch}`;
 };
 
+pythonGenerator.forBlock['wait_until_block'] = function(block, generator) {
+  const field_ms = block.getFieldValue('DELAY_MS') || '0';
+  
+  // Convert milliseconds to seconds for Python's time.sleep()
+  return `time.sleep(${field_ms} / 1000.0)\n`;
+};
+
+pythonGenerator.forBlock['delay_block'] = function(block, generator) {
+  const field_ms = block.getFieldValue('DELAY_MS') || '0';
+  
+  // Convert milliseconds to seconds for Python's time.sleep()
+  return `time.sleep(${field_ms} / 1000.0)\n`;
+};
 
 // -------------------- SENSOR --------------------------
 
@@ -191,10 +233,80 @@ pythonGenerator.forBlock['read_sonar_block'] = function(block) {
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
 };
 
+pythonGenerator.forBlock['read_tof_block'] = function(block) {
+  const code = 'robot.readTOF()';
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+pythonGenerator.forBlock['read_distance_sensor_block'] = function(block) {
+  const code = 'robot.readSonar()';
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+pythonGenerator.forBlock['set_distance_sensor_position'] = function(block) {
+  const code = 'robot.readSonar()';
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+pythonGenerator.forBlock['check_distance_sensor_found_obstacle_block'] = function(block) {
+  const code = 'robot.readSonar()';
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+pythonGenerator.forBlock['read_full_line_sensor_block'] = function(block) {
+  const code = 'robot.readLineSensor()';
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
 pythonGenerator.forBlock['read_line_sensor_block'] = function(block) {
 
   const sensor_label_num = block.getFieldValue('SENSOR_LABEL_NUM');
   const code = `robot.readLineSensor${sensor_label_num}()`;
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+pythonGenerator.forBlock['read_color_sensor_block'] = function(block) {
+  const code = 'robot.readSonar()';
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+pythonGenerator.forBlock['set_color_detection'] = function(block) {
+  const code = 'robot.readSonar()';
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+pythonGenerator.forBlock['check_color_sensor_found_color_block'] = function(block) {
+  const code = 'robot.readSonar()';
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+pythonGenerator.forBlock['read_robot_dist_block'] = function(block) {
+  const code = 'int(robot.readRobotDist()*1000)';
+  
+  // Because this is a value, we return it in an array with its priority
+  return [code, pythonGenerator.ORDER_FUNCTION_CALL];
+};
+
+pythonGenerator.forBlock['read_robot_yaw_block'] = function(block) {
+  const code = 'int(robot.readRobotTurn()*180/3.142)';
   
   // Because this is a value, we return it in an array with its priority
   return [code, pythonGenerator.ORDER_FUNCTION_CALL];
@@ -217,9 +329,6 @@ pythonGenerator.forBlock['rgb_led_block'] = function(block, generator) {
   return `robot.writeRGB(${r_val}, ${g_val}, ${b_val})\n`;
 };
 
-
-// ------------------- UTILITIES -------------------------
-
 pythonGenerator.forBlock['print_block'] = function(block) {
   // 1. Get the text from the input field named 'TEXT'
   const textValue = block.getFieldValue('TEXT');
@@ -227,13 +336,6 @@ pythonGenerator.forBlock['print_block'] = function(block) {
   // 2. Generate the Python print statement
   // We use backticks and quotes to make sure it's a string in Python
   return `print("${textValue}")\n`;
-};
-
-pythonGenerator.forBlock['delay_block'] = function(block, generator) {
-  const field_ms = block.getFieldValue('DELAY_MS') || '0';
-  
-  // Convert milliseconds to seconds for Python's time.sleep()
-  return `time.sleep(${field_ms} / 1000.0)\n`;
 };
 
 //---------------------------------------------------------

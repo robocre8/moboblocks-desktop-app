@@ -304,11 +304,11 @@ button:hover {
 
 /* 4. Individual Icon Colors (Maintained from your setup blueprint) */
 div[role="treeitem"]:nth-child(1) .mobo-category-icon { background-color: #4C97FF !important; }
-div[role="treeitem"]:nth-child(2) .mobo-category-icon { background-color: #3cc3fb !important; }
-div[role="treeitem"]:nth-child(3) .mobo-category-icon { background-color: #FF6680 !important; }
+div[role="treeitem"]:nth-child(2) .mobo-category-icon { background-color: #3498db !important; }
+div[role="treeitem"]:nth-child(3) .mobo-category-icon { background-color: #9966FF !important; }
 div[role="treeitem"]:nth-child(4) .mobo-category-icon { background-color: #59C059 !important; }
-div[role="treeitem"]:nth-child(5) .mobo-category-icon { background-color: #FFAB19 !important; }
-div[role="treeitem"]:nth-child(6) .mobo-category-icon { background-color: #9966FF !important; }
+div[role="treeitem"]:nth-child(5) .mobo-category-icon { background-color: #dba903 !important; }
+/* div[role="treeitem"]:nth-child(6) .mobo-category-icon { background-color: #f73f5e !important; } */
 
 
 
@@ -321,7 +321,7 @@ div[role="treeitem"]:nth-child(6) .mobo-category-icon { background-color: #9966F
     /* fill: #fff !important; */
     font-family: "Helvetica Neue", Helvetica, sans-serif !important;
     /* font-weight: 500 !important; */
-    /* font-weight: bold !important; */
+    font-weight: bold !important;
     font-size: 11pt !important;
 }
 

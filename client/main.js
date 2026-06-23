@@ -15,26 +15,26 @@ const __dirname = path.dirname(__filename);
 let pyBackend; // Variable to hold the server process
 function startBackend() {
 
-  // // We need to point to the server directory
-  // // '../server' moves up from 'client' into the root, then into 'server'
-  // const serverPath = path.join(__dirname, '..', 'server');
+  // We need to point to the server directory
+  // '../server' moves up from 'client' into the root, then into 'server'
+  const serverPath = path.join(__dirname, '..', 'server');
 
-  // // Define the path to the virtual env's python
-  // // On Windows it's .venv/Scripts/python.exe, on Linux/Mac it's .venv/bin/python
-  // const venvPath = process.platform === 'win32' 
-  //   ? path.join(serverPath, '.env', 'Scripts', 'python.exe') 
-  //   : path.join(serverPath, '.env', 'bin', 'python');
+  // Define the path to the virtual env's python
+  // On Windows it's .venv/Scripts/python.exe, on Linux/Mac it's .venv/bin/python
+  const venvPath = process.platform === 'win32' 
+    ? path.join(serverPath, '.env', 'Scripts', 'python.exe') 
+    : path.join(serverPath, '.env', 'bin', 'python');
 
-  // pyBackend = spawn(venvPath, [
-  //   '-m', 'uvicorn', 
-  //   'main:app', 
-  //   '--host', '127.0.0.1', 
-  //   '--port', '8000'
-  // ], {
-  //   cwd: serverPath, // This tells the terminal to run the command INSIDE the server folder
-  //   shell: false,
-  //   detached: false
-  // });
+  pyBackend = spawn(venvPath, [
+    '-m', 'uvicorn', 
+    'main:app', 
+    '--host', '127.0.0.1', 
+    '--port', '8000'
+  ], {
+    cwd: serverPath, // This tells the terminal to run the command INSIDE the server folder
+    shell: false,
+    detached: false
+  });
 
 
   
@@ -57,25 +57,25 @@ function startBackend() {
 
 
 
-  let serverPath;
+  // let serverPath;
 
-  if (app.isPackaged) {
-    // Path when the app is built/installed
-    serverPath = path.join(process.resourcesPath, 'mobobot_server');
-  } else {
-    // Path during development
-    serverPath = path.join(__dirname, 'resources', 'mobobot_server');
-  }
+  // if (app.isPackaged) {
+  //   // Path when the app is built/installed
+  //   serverPath = path.join(process.resourcesPath, 'mobobot_server');
+  // } else {
+  //   // Path during development
+  //   serverPath = path.join(__dirname, 'resources', 'mobobot_server');
+  // }
 
-  // Add .exe for Windows users
-  const cmd = process.platform === 'win32' ? `${serverPath}.exe` : serverPath;
+  // // Add .exe for Windows users
+  // const cmd = process.platform === 'win32' ? `${serverPath}.exe` : serverPath;
 
-  pyBackend = spawn(cmd, ['--port', '8000'], {
-    // Ensure the server runs in its own directory to find internal files
-    cwd: path.dirname(cmd),
-    shell: false,
-    detached: false
-  });
+  // pyBackend = spawn(cmd, ['--port', '8000'], {
+  //   // Ensure the server runs in its own directory to find internal files
+  //   cwd: path.dirname(cmd),
+  //   shell: false,
+  //   detached: false
+  // });
 
 
 
